@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:bb_mobile/features/default_wallets/domain/validate_default_wallet_destination_usecase.dart';
-import 'package:bb_mobile/core/exchange/domain/entity/default_wallet.dart';
+import 'package:bb_mobile/features/exchange/domain/entities/default_wallet.dart';
 import 'package:bb_mobile/features/exchange/domain/usecases/delete_default_wallet_usecase.dart';
 import 'package:bb_mobile/features/exchange/domain/usecases/get_default_wallets_usecase.dart';
 import 'package:bb_mobile/features/exchange/domain/usecases/save_default_wallet_usecase.dart';

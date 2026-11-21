@@ -2,8 +2,8 @@ import 'package:primitives/primitives.dart' show BitcoinUnit;
 
 import 'dart:async';
 
-import 'package:bb_mobile/core/exchange/domain/entity/order.dart';
-import 'package:bb_mobile/core/exchange/domain/entity/user_summary.dart';
+import 'package:bb_mobile/features/exchange/domain/entities/order.dart';
+import 'package:bb_mobile/features/exchange/domain/entities/user_summary.dart';
 import 'package:bb_mobile/core/themes/app_theme.dart';
 import 'package:bb_mobile/features/wallet/domain/wallet.dart';
 import 'package:bb_mobile/features/wallet/ui/widgets/address_viewer.dart';

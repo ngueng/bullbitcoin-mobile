@@ -1,6 +1,6 @@
-import 'package:bb_mobile/core/errors/exchange_errors.dart';
-import 'package:bb_mobile/core/exchange/domain/entity/order.dart';
-import 'package:bb_mobile/core/exchange/domain/repositories/exchange_order_repository.dart';
+import 'package:bb_mobile/features/exchange/domain/exchange_errors.dart';
+import 'package:bb_mobile/features/exchange/domain/entities/order.dart';
+import 'package:bb_mobile/features/exchange/domain/repositories/exchange_order_repository.dart';
 import 'package:bb_mobile/core/settings/data/settings_repository.dart';
 import 'package:bb_mobile/features/sell/domain/sell_failure.dart';
 import 'package:bb_mobile/features/sell/domain/sell_order_payin_x.dart';

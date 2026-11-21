@@ -236,9 +236,6 @@ graph TB
     ONBOARDING --> WALLETS
     APP_STARTUP --> IMPORT_MNEMONIC
 
-    %% Legacy Core-to-feature dependencies, pending extraction
-    CORE --> DCA
-
     %% Feature-to-feature dependencies (extracted from draw.io diagram)
     ADDRESS_MGMT --> LABELS
     ADDRESS_MGMT -->|public revision stream| WALLETS

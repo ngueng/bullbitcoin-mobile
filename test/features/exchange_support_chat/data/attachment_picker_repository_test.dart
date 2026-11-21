@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 
-import 'package:bb_mobile/core/exchange/domain/exchange_support_chat_failure.dart';
+import 'package:bb_mobile/features/exchange/domain/exchange_support_chat_failure.dart';
 import 'package:bb_mobile/features/exchange_support_chat/data/attachment_picker_repository_impl.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:image_picker/image_picker.dart';

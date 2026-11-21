@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:bb_mobile/core/exchange/data/exchange_authentication.dart';
+import 'package:bb_mobile/features/exchange/data/exchange_authentication.dart';
 import 'package:bb_mobile/core/settings/data/settings_repository.dart';
 import 'package:bb_mobile/features/limit_orders/domain/entities/limit_order.dart';
 import 'package:bb_mobile/features/limit_orders/domain/entities/limit_order_draft.dart';

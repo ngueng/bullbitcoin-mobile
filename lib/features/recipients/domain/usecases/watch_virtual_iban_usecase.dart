@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:bb_mobile/core/exchange/domain/entity/notification_message.dart';
-import 'package:bb_mobile/core/exchange/domain/repositories/exchange_notification_repository.dart';
+import 'package:bb_mobile/features/exchange/domain/entities/notification_message.dart';
+import 'package:bb_mobile/features/exchange/domain/repositories/exchange_notification_repository.dart';
 import 'package:primitives/primitives.dart';
 import 'package:bb_mobile/features/recipients/domain/usecases/get_recipients_environment_usecase.dart';
 import 'package:bb_mobile/features/recipients/domain/entities/virtual_iban.dart';

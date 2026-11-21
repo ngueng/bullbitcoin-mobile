@@ -1,5 +1,5 @@
-import 'package:bb_mobile/core/exchange/domain/repositories/exchange_kyc_repository.dart';
-import 'package:bb_mobile/core/exchange/domain/repositories/exchange_order_stats_repository.dart';
+import 'package:bb_mobile/features/exchange/domain/repositories/exchange_kyc_repository.dart';
+import 'package:bb_mobile/features/exchange/domain/repositories/exchange_order_stats_repository.dart';
 import 'package:bb_mobile/features/exchange/domain/usecases/get_exchange_user_summary_usecase.dart';
 import 'package:bb_mobile/features/exchange/domain/usecases/get_order_stats_usecase.dart';
 import 'package:bb_mobile/features/exchange/domain/usecases/upload_kyc_document_usecase.dart';
@@ -76,7 +76,7 @@ class ExchangeSettingsLocator {
     );
   }
 
-  /// The feature's own use-cases. Each wraps a shared `core/exchange`
+  /// The feature's own use-cases. Each wraps a shared exchange
   /// use-case that still throws, and is therefore the `try/catch` boundary
   /// that turns a raw exception into a sanitized `ExchangeSettingsFailure`.
   static void _registerFeatureUsecases(GetIt locator) {

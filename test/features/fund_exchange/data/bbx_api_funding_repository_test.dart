@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:bb_mobile/core/exchange/data/exchange_authentication.dart';
-import 'package:bb_mobile/core/exchange/data/http/exchange_authentication_interceptor.dart';
-import 'package:bb_mobile/core/exchange/domain/exchange_api_key_failure.dart';
+import 'package:bb_mobile/features/exchange/data/exchange_authentication.dart';
+import 'package:bb_mobile/features/exchange/data/exchange_authentication_interceptor.dart';
+import 'package:bb_mobile/features/exchange/domain/exchange_api_key_failure.dart';
 import 'package:bb_mobile/core/utils/constants.dart';
 import 'package:bb_mobile/features/fund_exchange/data/bbx_api_funding_repository.dart';
 import 'package:bb_mobile/features/fund_exchange/domain/entities/funding_details.dart';

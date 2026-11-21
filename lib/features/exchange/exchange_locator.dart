@@ -10,10 +10,10 @@ import 'package:bb_mobile/features/exchange/domain/usecases/delete_exchange_acco
 
 import 'dart:io';
 
-import 'package:bb_mobile/core/exchange/domain/repositories/exchange_notification_repository.dart';
+import 'package:bb_mobile/features/exchange/domain/repositories/exchange_notification_repository.dart';
 import 'package:bb_mobile/features/exchange/data/bbx_api_account_repository.dart';
-import 'package:bb_mobile/core/exchange/domain/repositories/exchange_api_key_repository.dart';
-import 'package:bb_mobile/core/exchange/domain/repositories/exchange_user_repository.dart';
+import 'package:bb_mobile/features/exchange/domain/repositories/exchange_api_key_repository.dart';
+import 'package:bb_mobile/features/exchange/domain/repositories/exchange_user_repository.dart';
 import 'package:bb_mobile/features/exchange/domain/usecases/send_support_chat_message_usecase.dart';
 import 'package:bb_mobile/core/settings/data/settings_repository.dart';
 import 'package:bb_mobile/core/settings/domain/repositories/settings_repository.dart'

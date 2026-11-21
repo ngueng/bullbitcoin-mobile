@@ -1,5 +1,5 @@
-import 'package:bb_mobile/core/exchange/domain/entity/announcement.dart';
-import 'package:bb_mobile/core/exchange/domain/entity/user_summary.dart';
+import 'package:bb_mobile/features/exchange/domain/entities/announcement.dart';
+import 'package:bb_mobile/features/exchange/domain/entities/user_summary.dart';
 import 'package:bb_mobile/features/exchange/domain/exchange_failure.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 

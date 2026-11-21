@@ -1,4 +1,4 @@
-import 'package:bb_mobile/core/exchange/domain/entity/default_wallet.dart';
+import 'package:bb_mobile/features/exchange/domain/entities/default_wallet.dart';
 import 'package:primitives/primitives.dart' show Failure;
 
 sealed class DefaultWalletsFailure extends Failure {

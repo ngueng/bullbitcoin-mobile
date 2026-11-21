@@ -3,8 +3,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:bb_mobile/core/settings/data/settings_repository.dart';
 import 'package:bb_mobile/features/settings/domain/settings_entity.dart';
-import 'package:bb_mobile/core/exchange/domain/entity/default_wallet.dart';
-import 'package:bb_mobile/core/exchange/domain/repositories/exchange_recipient_repository.dart';
+import 'package:bb_mobile/features/exchange/domain/entities/default_wallet.dart';
+import 'package:bb_mobile/features/exchange/domain/repositories/exchange_recipient_repository.dart';
 import 'package:bb_mobile/features/exchange/domain/usecases/save_default_wallet_usecase.dart';
 import 'package:bb_mobile/features/exchange/domain/usecases/delete_default_wallet_usecase.dart';
 

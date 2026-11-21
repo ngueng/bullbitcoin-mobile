@@ -5,14 +5,14 @@ import 'dart:convert';
 import 'dart:async';
 import 'dart:io';
 
-import 'package:bb_mobile/core/exchange/data/exchange_api_key_repository_impl.dart';
-import 'package:bb_mobile/core/exchange/domain/exchange_api_key_failure.dart';
-import 'package:bb_mobile/core/exchange/domain/repositories/exchange_api_key_repository.dart';
-import 'package:bb_mobile/core/exchange/domain/repositories/exchange_user_repository.dart';
-import 'package:bb_mobile/core/exchange/domain/repositories/exchange_order_repository.dart';
+import 'package:bb_mobile/features/exchange/data/exchange_api_key_repository_impl.dart';
+import 'package:bb_mobile/features/exchange/domain/exchange_api_key_failure.dart';
+import 'package:bb_mobile/features/exchange/domain/repositories/exchange_api_key_repository.dart';
+import 'package:bb_mobile/features/exchange/domain/repositories/exchange_user_repository.dart';
+import 'package:bb_mobile/features/exchange/domain/repositories/exchange_order_repository.dart';
 import 'package:bb_mobile/features/exchange/data/bbx_api_notification_datasource.dart';
-import 'package:bb_mobile/core/exchange/data/http/exchange_authentication_interceptor.dart';
-import 'package:bb_mobile/core/exchange/data/exchange_authentication.dart';
+import 'package:bb_mobile/features/exchange/data/exchange_authentication_interceptor.dart';
+import 'package:bb_mobile/features/exchange/data/exchange_authentication.dart';
 import 'package:bb_mobile/features/exchange/exchange_core_locator.dart'
     as core_exchange;
 import 'package:bb_mobile/features/exchange/exchange_locator.dart'

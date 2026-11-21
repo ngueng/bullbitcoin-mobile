@@ -1,4 +1,4 @@
-import 'package:bb_mobile/core/exchange/domain/entity/order.dart';
+import 'package:bb_mobile/features/exchange/domain/entities/order.dart';
 import 'package:bb_mobile/features/exchange/data/bbx_api_order_mapper.dart';
 import 'package:bbx_api/bbx_api.dart' as bbx;
 import 'package:flutter_test/flutter_test.dart';

@@ -1,5 +1,5 @@
-import 'package:bb_mobile/core/exchange/domain/entity/order_stats.dart';
-import 'package:bb_mobile/core/exchange/domain/repositories/exchange_order_stats_repository.dart';
+import 'package:bb_mobile/features/exchange/domain/entities/order_stats.dart';
+import 'package:bb_mobile/features/exchange/domain/repositories/exchange_order_stats_repository.dart';
 import 'package:bb_mobile/core/settings/data/settings_repository.dart';
 
 class GetOrderStatsUsecase {

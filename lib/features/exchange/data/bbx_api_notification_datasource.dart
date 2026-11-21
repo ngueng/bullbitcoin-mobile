@@ -1,4 +1,4 @@
-import 'package:bb_mobile/core/exchange/data/exchange_authentication.dart';
+import 'package:bb_mobile/features/exchange/data/exchange_authentication.dart';
 import 'package:bbx_api/bbx_api.dart';
 import 'package:bull_logger/bull_logger.dart' show log;
 import 'package:primitives/primitives.dart';

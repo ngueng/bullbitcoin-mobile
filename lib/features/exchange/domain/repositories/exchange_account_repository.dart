@@ -1,4 +1,4 @@
-import 'package:bb_mobile/core/exchange/domain/entity/user_summary.dart';
+import 'package:bb_mobile/features/exchange/domain/entities/user_summary.dart';
 import 'package:primitives/primitives.dart' show Result;
 import 'package:bb_mobile/features/exchange/domain/exchange_failure.dart';
 import 'package:meta/meta.dart';

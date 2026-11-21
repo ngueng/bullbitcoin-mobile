@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:bb_mobile/core/errors/exchange_errors.dart';
-import 'package:bb_mobile/core/exchange/domain/entity/default_wallet.dart';
-import 'package:bb_mobile/core/exchange/domain/exchange_api_key_failure.dart';
-import 'package:bb_mobile/core/exchange/domain/repositories/exchange_recipient_repository.dart';
+import 'package:bb_mobile/features/exchange/domain/exchange_errors.dart';
+import 'package:bb_mobile/features/exchange/domain/entities/default_wallet.dart';
+import 'package:bb_mobile/features/exchange/domain/exchange_api_key_failure.dart';
+import 'package:bb_mobile/features/exchange/domain/repositories/exchange_recipient_repository.dart';
 import 'package:bb_mobile/features/default_wallets/data/bbx_api_exchange_recipient_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:primitives/primitives.dart';

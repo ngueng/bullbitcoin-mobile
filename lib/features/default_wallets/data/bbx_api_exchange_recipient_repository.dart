@@ -1,6 +1,6 @@
-import 'package:bb_mobile/core/exchange/data/exchange_authentication.dart';
-import 'package:bb_mobile/core/exchange/domain/entity/default_wallet.dart';
-import 'package:bb_mobile/core/exchange/domain/repositories/exchange_recipient_repository.dart';
+import 'package:bb_mobile/features/exchange/data/exchange_authentication.dart';
+import 'package:bb_mobile/features/exchange/domain/entities/default_wallet.dart';
+import 'package:bb_mobile/features/exchange/domain/repositories/exchange_recipient_repository.dart';
 import 'package:bbx_api/bbx_api.dart' as bbx;
 
 /// [ExchangeRecipientRepository] on the `bbx_api` package: the default

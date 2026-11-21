@@ -1,4 +1,4 @@
-import 'package:bb_mobile/core/exchange/domain/entity/order.dart';
+import 'package:bb_mobile/features/exchange/domain/entities/order.dart';
 
 /// How long a payjoin can still settle a buy order's payout.
 ///

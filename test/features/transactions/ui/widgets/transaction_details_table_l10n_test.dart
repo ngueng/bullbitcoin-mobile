@@ -1,5 +1,5 @@
 import 'package:primitives/primitives.dart' show BitcoinUnit;
-import 'package:bb_mobile/core/exchange/domain/entity/order.dart';
+import 'package:bb_mobile/features/exchange/domain/entities/order.dart';
 import 'package:bb_mobile/core/themes/app_theme.dart';
 import 'package:bb_mobile/features/settings/presentation/bloc/settings_cubit.dart';
 import 'package:bb_mobile/features/settings/public/settings_facade.dart';

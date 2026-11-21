@@ -1,4 +1,4 @@
-import 'package:bb_mobile/core/exchange/domain/entity/order.dart';
+import 'package:bb_mobile/features/exchange/domain/entities/order.dart';
 import 'package:swaps/swaps.dart';
 import 'package:bb_mobile/features/transactions/presentation/swap_l10n_x.dart';
 import 'package:bb_mobile/core/themes/app_theme.dart';

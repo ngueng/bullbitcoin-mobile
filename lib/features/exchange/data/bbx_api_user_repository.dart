@@ -1,8 +1,8 @@
-import 'package:bb_mobile/core/exchange/data/exchange_authentication.dart';
-import 'package:bb_mobile/core/exchange/domain/entity/announcement.dart';
-import 'package:bb_mobile/core/exchange/domain/entity/user_summary.dart';
-import 'package:bb_mobile/core/exchange/domain/exchange_user_failure.dart';
-import 'package:bb_mobile/core/exchange/domain/repositories/exchange_user_repository.dart';
+import 'package:bb_mobile/features/exchange/data/exchange_authentication.dart';
+import 'package:bb_mobile/features/exchange/domain/entities/announcement.dart';
+import 'package:bb_mobile/features/exchange/domain/entities/user_summary.dart';
+import 'package:bb_mobile/features/exchange/domain/exchange_user_failure.dart';
+import 'package:bb_mobile/features/exchange/domain/repositories/exchange_user_repository.dart';
 import 'package:bb_mobile/features/exchange/data/bbx_api_user_summary_mapper.dart';
 import 'package:bbx_api/bbx_api.dart' as bbx;
 import 'package:bull_logger/bull_logger.dart';

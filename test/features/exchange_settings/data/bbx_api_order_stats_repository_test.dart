@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:bb_mobile/core/errors/exchange_errors.dart';
-import 'package:bb_mobile/core/exchange/data/http/exchange_authentication_interceptor.dart';
-import 'package:bb_mobile/core/exchange/domain/entity/order_stats.dart';
-import 'package:bb_mobile/core/exchange/domain/exchange_api_key_failure.dart';
+import 'package:bb_mobile/features/exchange/domain/exchange_errors.dart';
+import 'package:bb_mobile/features/exchange/data/exchange_authentication_interceptor.dart';
+import 'package:bb_mobile/features/exchange/domain/entities/order_stats.dart';
+import 'package:bb_mobile/features/exchange/domain/exchange_api_key_failure.dart';
 import 'package:bb_mobile/features/exchange_settings/data/bbx_api_order_stats_repository.dart';
 import 'package:bbx_api/bbx_api.dart';
 import 'package:dio/dio.dart';

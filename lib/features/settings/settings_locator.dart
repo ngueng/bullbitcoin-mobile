@@ -8,7 +8,7 @@ import 'package:bb_mobile/features/settings/domain/usecases/manage_exchange_acce
 import 'package:bb_mobile/features/settings/presentation/exchange_access_settings_cubit.dart';
 import 'package:bull_quick_actions/bull_quick_actions.dart';
 import 'package:bull_logger/bull_logger.dart';
-import 'package:bb_mobile/core/exchange/domain/repositories/exchange_user_repository.dart';
+import 'package:bb_mobile/features/exchange/domain/repositories/exchange_user_repository.dart';
 import 'package:bb_mobile/core/settings/domain/repositories/settings_repository.dart';
 import 'package:bb_mobile/core/settings/domain/get_settings_usecase.dart';
 import 'package:bb_mobile/features/settings/data/payjoin_disclaimer_repository_impl.dart';

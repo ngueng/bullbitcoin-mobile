@@ -1,0 +1,248 @@
+import 'dart:typed_data';
+
+import 'package:bb_mobile/features/exchange/domain/exchange_errors.dart';
+import 'package:bb_mobile/features/exchange/data/exchange_authentication_interceptor.dart';
+import 'package:bb_mobile/features/exchange/domain/entities/order.dart';
+import 'package:bb_mobile/features/exchange/domain/entities/sepa_payment_processor.dart';
+import 'package:bb_mobile/features/exchange/domain/exchange_api_key_failure.dart';
+import 'package:bb_mobile/features/exchange/domain/exchange_order_failure.dart';
+import 'package:bb_mobile/features/exchange/domain/exchange_support_chat_failure.dart';
+import 'package:bb_mobile/features/exchange/domain/exchange_user_failure.dart';
+import 'package:bb_mobile/core/settings/data/settings_repository.dart';
+import 'package:bb_mobile/features/exchange/data/bbx_api_order_repository.dart';
+import 'package:bb_mobile/features/exchange/data/bbx_api_support_chat_repository.dart';
+import 'package:bb_mobile/features/exchange/data/bbx_api_user_repository.dart';
+import 'package:bb_mobile/features/fund_exchange/data/bbx_api_funding_repository.dart';
+import 'package:bb_mobile/features/fund_exchange/domain/entities/funding_jurisdiction.dart';
+import 'package:bb_mobile/features/fund_exchange/domain/fund_exchange_failure.dart';
+import 'package:bb_mobile/features/limit_orders/data/bbx_api_limit_order_repository.dart';
+import 'package:bb_mobile/features/limit_orders/domain/limit_orders_failure.dart';
+import 'package:bb_mobile/features/recipients/data/bbx_api_recipients_repository.dart';
+import 'package:bb_mobile/features/recipients/domain/recipients_failure.dart';
+import 'package:bb_mobile/features/settings/domain/settings_entity.dart';
+import 'package:bbx_api/bbx_api.dart' show BbxApiClient;
+import 'package:dio/dio.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:primitives/primitives.dart';
+
+class _NoNetwork implements HttpClientAdapter {
+  var sends = 0;
+
+  @override
+  Future<ResponseBody> fetch(
+    RequestOptions options,
+    Stream<Uint8List>? requestStream,
+    Future<void>? cancelFuture,
+  ) async {
+    sends++;
+    throw StateError('No request should pass authentication');
+  }
+
+  @override
+  void close({bool force = false}) {}
+}
+
+class _Settings extends Fake implements SettingsRepository {
+  @override
+  Future<SettingsEntity> fetch() async => const SettingsEntity(
+    environment: Environment.testnet,
+    bitcoinUnit: BitcoinUnit.btc,
+    currencyCode: 'CAD',
+  );
+}
+
+void main() {
+  late Dio dio;
+  late _NoNetwork network;
+  late BbxApiClient api;
+  late BbxApiUserRepository user;
+  late BbxApiSupportChatRepository support;
+  late BbxApiOrderRepository orders;
+  Result<String?, ExchangeApiKeyFailure> credential = const Ok(null);
+
+  setUp(() {
+    credential = const Ok(null);
+    network = _NoNetwork();
+    dio = Dio(BaseOptions(baseUrl: 'https://example.invalid'))
+      ..httpClientAdapter = network;
+    addExchangeAuthentication(dio, () async => credential);
+    api = BbxApiClient(dio);
+    user = BbxApiUserRepository(api: api);
+    support = BbxApiSupportChatRepository(
+      users: api.users,
+      commcenter: api.commcenter,
+    );
+    orders = BbxApiOrderRepository(api: api, isTestnet: true);
+  });
+  tearDown(() {
+    expect(network.sends, 0);
+    dio.close();
+  });
+
+  for (final storageFailure in [false, true]) {
+    test(
+      'EUR sell payout preserves credential refusal: $storageFailure',
+      () async {
+        credential = storageFailure
+            ? const Err(ExchangeApiKeyReadFailure())
+            : const Ok(null);
+        await expectLater(
+          orders.placePayOrder(
+            orderAmount: const FiatAmount(100),
+            recipientId: 'own-account',
+            paymentProcessor: SepaPaymentProcessor.regular,
+            network: OrderBitcoinNetwork.bitcoin,
+          ),
+          throwsA(
+            storageFailure
+                ? isA<ExchangeCredentialUnavailableException>()
+                : isA<ApiKeyException>(),
+          ),
+        );
+      },
+    );
+  }
+
+  test(
+    'no session yields contextual empty results or authentication failures',
+    () async {
+      final profile = await user.getUserSummary();
+      expect(
+        profile,
+        isA<Err>().having(
+          (r) => r.failure,
+          'profile',
+          isA<ExchangeUserNotAuthenticatedFailure>(),
+        ),
+      );
+      final announcements = await user.listAnnouncements();
+      expect(
+        announcements,
+        isA<Ok>().having((r) => r.value, 'announcements', isEmpty),
+      );
+      final messages = await support.getMessages();
+      expect(
+        messages,
+        isA<Err>().having(
+          (r) => r.failure,
+          'chat',
+          isA<NotAuthenticatedFailure>(),
+        ),
+      );
+      final history = await orders.getOrders();
+      expect(history, isA<Ok>().having((r) => r.value, 'history', isEmpty));
+      await expectLater(
+        orders.getOrder('order'),
+        throwsA(isA<ApiKeyException>()),
+      );
+    },
+  );
+
+  test(
+    'storage failure is not presented as logout or empty account history',
+    () async {
+      credential = const Err(ExchangeApiKeyReadFailure());
+      expect(
+        await user.getUserSummary(),
+        isA<Err>().having(
+          (r) => r.failure,
+          'profile',
+          isA<ExchangeUserCredentialUnavailableFailure>(),
+        ),
+      );
+      expect(
+        await user.listAnnouncements(),
+        isA<Err>().having(
+          (r) => r.failure,
+          'announcements',
+          isA<ExchangeUserCredentialUnavailableFailure>(),
+        ),
+      );
+      expect(
+        await support.getMessages(),
+        isA<Err>().having((r) => r.failure, 'chat', isA<LoadMessagesFailure>()),
+      );
+      expect(
+        await orders.getOrders(),
+        isA<Err>().having(
+          (r) => r.failure,
+          'history',
+          isA<ExchangeOrderCredentialFailure>(),
+        ),
+      );
+      expect(
+        await orders.getOrderByTxId('tx'),
+        isA<Err>().having(
+          (r) => r.failure,
+          'lookup',
+          isA<ExchangeOrderCredentialFailure>(),
+        ),
+      );
+    },
+  );
+  test(
+    'shared Dio features distinguish missing credentials from read failures',
+    () async {
+      final funding = BbxApiFundingRepository(api: api);
+      final recipients = BbxApiRecipientsRepository(api: api);
+      final limits = BbxApiLimitOrderRepository(
+        mainnet: api,
+        testnet: api,
+        settingsRepository: _Settings(),
+      );
+      expect(
+        await funding.listInstitutions(
+          jurisdiction: FundingJurisdiction.canada,
+        ),
+        isA<Err>().having(
+          (r) => r.failure,
+          'funding',
+          isA<FundExchangeNotAuthenticatedFailure>(),
+        ),
+      );
+      expect(
+        await recipients.listRecipients(isTestnet: true),
+        isA<Err>().having(
+          (r) => r.failure,
+          'recipients',
+          isA<RecipientsNotAuthenticatedFailure>(),
+        ),
+      );
+      expect(
+        await limits.listActive(),
+        isA<Err>().having(
+          (r) => r.failure,
+          'limit orders',
+          isA<LimitOrdersAccountUnavailableFailure>(),
+        ),
+      );
+      credential = const Err(ExchangeApiKeyReadFailure());
+      expect(
+        await funding.listInstitutions(
+          jurisdiction: FundingJurisdiction.canada,
+        ),
+        isA<Err>().having(
+          (r) => r.failure,
+          'funding unavailable',
+          isA<FundExchangeUnexpectedFailure>(),
+        ),
+      );
+      expect(
+        await recipients.listRecipients(isTestnet: true),
+        isA<Err>().having(
+          (r) => r.failure,
+          'recipients unavailable',
+          isA<RecipientsLoadFailure>(),
+        ),
+      );
+      expect(
+        await limits.listActive(),
+        isA<Err>().having(
+          (r) => r.failure,
+          'limit orders unavailable',
+          isA<LimitOrdersLoadFailure>(),
+        ),
+      );
+    },
+  );
+}

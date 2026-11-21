@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:bb_mobile/core/exchange/domain/exchange_api_key_failure.dart';
+import 'package:bb_mobile/features/exchange/domain/exchange_api_key_failure.dart';
 import 'package:bb_mobile/features/recipients/data/bbx_api_virtual_iban_repository.dart';
 import 'package:bb_mobile/features/recipients/domain/entities/virtual_iban.dart';
 import 'package:bb_mobile/features/recipients/domain/recipients_failure.dart';

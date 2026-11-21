@@ -1,4 +1,4 @@
-import 'package:bb_mobile/core/exchange/domain/repositories/exchange_api_key_repository.dart';
+import 'package:bb_mobile/features/exchange/domain/repositories/exchange_api_key_repository.dart';
 import 'package:bb_mobile/features/exchange/data/exchange_access_repository_impl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bb_mobile/features/exchange/domain/exchange_access.dart';
@@ -8,9 +8,9 @@ import 'package:bb_mobile/features/settings/domain/settings_entity.dart';
 
 import 'dart:async';
 
-import 'package:bb_mobile/core/exchange/domain/entity/notification_message.dart';
-import 'package:bb_mobile/core/exchange/domain/exchange_notification_failure.dart';
-import 'package:bb_mobile/core/exchange/domain/repositories/exchange_notification_repository.dart';
+import 'package:bb_mobile/features/exchange/domain/entities/notification_message.dart';
+import 'package:bb_mobile/features/exchange/domain/exchange_notification_failure.dart';
+import 'package:bb_mobile/features/exchange/domain/repositories/exchange_notification_repository.dart';
 import 'package:primitives/primitives.dart';
 import 'package:bb_mobile/features/exchange/domain/exchange_failure.dart';
 import 'package:bb_mobile/features/exchange/domain/usecases/watch_exchange_notifications_usecase.dart';

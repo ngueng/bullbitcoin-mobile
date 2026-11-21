@@ -1,5 +1,5 @@
-import 'package:bb_mobile/core/exchange/domain/entity/file_upload.dart';
-import 'package:bb_mobile/core/exchange/domain/repositories/exchange_kyc_repository.dart';
+import 'package:bb_mobile/features/exchange/domain/entities/file_upload.dart';
+import 'package:bb_mobile/features/exchange/domain/repositories/exchange_kyc_repository.dart';
 import 'package:bb_mobile/core/settings/data/settings_repository.dart';
 
 class UploadKycDocumentUsecase {

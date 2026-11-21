@@ -1,9 +1,9 @@
-import 'package:bb_mobile/core/errors/exchange_errors.dart';
-import 'package:bb_mobile/core/exchange/data/exchange_authentication.dart';
-import 'package:bb_mobile/core/exchange/domain/entity/support_chat_message.dart';
-import 'package:bb_mobile/core/exchange/domain/entity/support_chat_message_attachment.dart';
-import 'package:bb_mobile/core/exchange/domain/exchange_support_chat_failure.dart';
-import 'package:bb_mobile/core/exchange/domain/repositories/exchange_support_chat_repository.dart';
+import 'package:bb_mobile/features/exchange/domain/exchange_errors.dart';
+import 'package:bb_mobile/features/exchange/data/exchange_authentication.dart';
+import 'package:bb_mobile/features/exchange/domain/entities/support_chat_message.dart';
+import 'package:bb_mobile/features/exchange/domain/entities/support_chat_message_attachment.dart';
+import 'package:bb_mobile/features/exchange/domain/exchange_support_chat_failure.dart';
+import 'package:bb_mobile/features/exchange/domain/repositories/exchange_support_chat_repository.dart';
 import 'package:bbx_api/bbx_api.dart' as bbx;
 import 'package:bull_logger/bull_logger.dart';
 import 'package:primitives/primitives.dart';

@@ -2,7 +2,7 @@ import 'package:primitives/primitives.dart' show BitcoinNetwork, BitcoinUnit;
 
 import 'dart:async';
 
-import 'package:bb_mobile/core/exchange/domain/repositories/exchange_order_repository.dart';
+import 'package:bb_mobile/features/exchange/domain/repositories/exchange_order_repository.dart';
 import 'package:bb_mobile/core/settings/domain/repositories/settings_repository.dart';
 import 'package:swaps/swaps.dart' show SwapStore;
 import 'package:bb_mobile/core/wallet/domain/repositories/wallet_transaction_repository.dart';

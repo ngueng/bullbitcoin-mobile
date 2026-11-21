@@ -1,4 +1,4 @@
-import 'package:bb_mobile/core/exchange/domain/entity/order.dart';
+import 'package:bb_mobile/features/exchange/domain/entities/order.dart';
 
 extension SellOrderPayinX on Order {
   double? get sellExchangeRateAmount => switch (this) {

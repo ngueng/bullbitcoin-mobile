@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:bb_mobile/core/exchange/data/exchange_authentication.dart';
-import 'package:bb_mobile/core/exchange/domain/exchange_api_key_failure.dart';
+import 'package:bb_mobile/features/exchange/data/exchange_authentication.dart';
+import 'package:bb_mobile/features/exchange/domain/exchange_api_key_failure.dart';
 import 'package:bb_mobile/core/utils/constants.dart';
 import 'package:bb_mobile/features/exchange/data/bbx_api_notification_datasource.dart';
 import 'package:bull_logger/bull_logger.dart';

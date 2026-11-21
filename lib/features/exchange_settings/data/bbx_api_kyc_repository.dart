@@ -1,7 +1,7 @@
-import 'package:bb_mobile/core/errors/exchange_errors.dart';
-import 'package:bb_mobile/core/exchange/data/exchange_authentication.dart';
-import 'package:bb_mobile/core/exchange/domain/entity/file_upload.dart';
-import 'package:bb_mobile/core/exchange/domain/repositories/exchange_kyc_repository.dart';
+import 'package:bb_mobile/features/exchange/domain/exchange_errors.dart';
+import 'package:bb_mobile/features/exchange/data/exchange_authentication.dart';
+import 'package:bb_mobile/features/exchange/domain/entities/file_upload.dart';
+import 'package:bb_mobile/features/exchange/domain/repositories/exchange_kyc_repository.dart';
 import 'package:bbx_api/bbx_api.dart' as bbx;
 import 'package:dio/dio.dart';
 

@@ -1,4 +1,4 @@
-import 'package:bb_mobile/core/exchange/data/exchange_authentication.dart';
+import 'package:bb_mobile/features/exchange/data/exchange_authentication.dart';
 import 'package:bb_mobile/core/utils/constants.dart';
 import 'package:bb_mobile/features/fund_exchange/data/funding_datasource_exception.dart';
 import 'package:bb_mobile/features/fund_exchange/data/models/get_funding_details_request_params_model.dart';

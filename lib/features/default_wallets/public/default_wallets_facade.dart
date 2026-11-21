@@ -1,4 +1,4 @@
-import 'package:bb_mobile/core/exchange/domain/entity/default_wallet.dart';
+import 'package:bb_mobile/features/exchange/domain/entities/default_wallet.dart';
 import 'package:bb_mobile/features/exchange/domain/usecases/delete_default_wallet_usecase.dart';
 import 'package:bb_mobile/features/exchange/domain/usecases/get_default_wallets_usecase.dart';
 import 'package:bb_mobile/features/exchange/domain/usecases/save_default_wallet_usecase.dart';
@@ -8,7 +8,7 @@ import 'package:bb_mobile/features/default_wallets/ui/widgets/default_wallets_ed
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-export 'package:bb_mobile/core/exchange/domain/entity/default_wallet.dart'
+export 'package:bb_mobile/features/exchange/domain/entities/default_wallet.dart'
     show DefaultWallet, DefaultWallets, WalletAddressType;
 
 export '../default_wallets_locator.dart' show DefaultWalletsLocator;

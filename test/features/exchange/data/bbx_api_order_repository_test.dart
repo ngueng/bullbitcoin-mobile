@@ -1,10 +1,10 @@
 import 'dart:convert';
 
-import 'package:bb_mobile/core/errors/exchange_errors.dart';
-import 'package:bb_mobile/core/exchange/domain/entity/order.dart';
-import 'package:bb_mobile/core/exchange/domain/exchange_api_key_failure.dart';
-import 'package:bb_mobile/core/exchange/domain/exchange_order_failure.dart';
-import 'package:bb_mobile/core/exchange/domain/entity/sepa_payment_processor.dart';
+import 'package:bb_mobile/features/exchange/domain/exchange_errors.dart';
+import 'package:bb_mobile/features/exchange/domain/entities/order.dart';
+import 'package:bb_mobile/features/exchange/domain/exchange_api_key_failure.dart';
+import 'package:bb_mobile/features/exchange/domain/exchange_order_failure.dart';
+import 'package:bb_mobile/features/exchange/domain/entities/sepa_payment_processor.dart';
 import 'package:bb_mobile/features/dca/public/dca_facade.dart';
 import 'package:bb_mobile/features/exchange/data/bbx_api_order_repository.dart';
 import 'package:bbx_api/bbx_api.dart' as bbx;
@@ -12,7 +12,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:primitives/primitives.dart';
 
-import '../../../core/exchange/order_json_fixture.dart';
+import 'order_json_fixture.dart';
 import 'exchange_log_capture.dart';
 import 'bbx_api_test_http.dart';
 

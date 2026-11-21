@@ -3,9 +3,9 @@ import 'dart:math' as math;
 import 'package:bb_mobile/features/buy/domain/validate_buy_destination_usecase.dart';
 import 'package:bb_mobile/features/buy/domain/sync_buy_receipt_usecase.dart';
 
-import 'package:bb_mobile/core/exchange/domain/entity/order.dart';
-import 'package:bb_mobile/core/exchange/domain/entity/user_summary.dart';
-import 'package:bb_mobile/core/exchange/domain/order_deadline_scheduler.dart';
+import 'package:bb_mobile/features/exchange/domain/entities/order.dart';
+import 'package:bb_mobile/features/exchange/domain/entities/user_summary.dart';
+import 'package:bb_mobile/features/exchange/domain/order_deadline_scheduler.dart';
 import 'package:bb_mobile/core/fees/domain/fees_entity.dart';
 import 'package:bb_mobile/features/settings/domain/settings_entity.dart';
 import 'package:bull_logger/bull_logger.dart';
