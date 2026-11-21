@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:bbx_api/src/bbx_api_client.dart';
 import 'package:bbx_api/src/bbx_api_exception.dart';
 import 'package:bbx_api/src/json.dart';
@@ -5,6 +8,7 @@ import 'package:bbx_api/src/orders/order_rejection.dart';
 import 'package:bbx_api/src/orders/order_stats.dart';
 import 'package:bbx_api/src/orders/order_summary.dart';
 import 'package:bbx_api/src/orders/sepa_payment_processor.dart';
+import 'package:dio/dio.dart';
 
 /// The `api-orders` endpoint.
 class OrdersApi {
@@ -210,10 +214,48 @@ class OrdersApi {
   Future<OrderSummary> unbatchAndExpressOrder(String orderId) =>
       _orderCall('unbatchAndExpressOrder', {'orderId': orderId});
 
+  /// Creates an order. A failure after the request may have reached the
+  /// server throws a [BbxApiOutcomeUnknownException]; a JSON-RPC refusal and
+  /// a failure before sending are rethrown unchanged.
   Future<OrderSummary> _createOrder(
     String method,
     Map<String, Object?> params,
-  ) => _orderCall(method, params, rpcError: orderRejection);
+  ) async {
+    try {
+      return await _orderCall(method, params, rpcError: orderRejection);
+    } on BbxApiFormatException catch (e) {
+      throw BbxApiOutcomeUnknownException(e.reason);
+    } on BbxApiHttpException catch (e) {
+      if (!_mayHaveCreated(e.statusCode)) rethrow;
+      throw BbxApiOutcomeUnknownException('status ${e.statusCode}');
+    } on DioException catch (e) {
+      if (!_mayHaveReachedServer(e)) rethrow;
+      throw BbxApiOutcomeUnknownException(e.type.name);
+    }
+  }
+
+  /// A status below 400 has no refusal, and a gateway error can come after
+  /// the server took the request.
+  static bool _mayHaveCreated(int? status) =>
+      status == null || status < 400 || status == 502 || status == 504;
+
+  /// Whether Dio failed after it may have sent the request. A connect
+  /// timeout, a bad certificate, a cancel and a refusal raised by the
+  /// caller's own interceptors happen before sending.
+  static bool _mayHaveReachedServer(DioException e) => switch (e.type) {
+    DioExceptionType.sendTimeout ||
+    DioExceptionType.receiveTimeout ||
+    DioExceptionType.transformTimeout ||
+    DioExceptionType.connectionError => true,
+    DioExceptionType.badResponse => _mayHaveCreated(e.response?.statusCode),
+    DioExceptionType.unknown =>
+      e.error is SocketException ||
+          e.error is HttpException ||
+          e.error is TimeoutException,
+    DioExceptionType.connectionTimeout ||
+    DioExceptionType.badCertificate ||
+    DioExceptionType.cancel => false,
+  };
 
   Future<OrderSummary> _orderCall(
     String method,

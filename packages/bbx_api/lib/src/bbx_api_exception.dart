@@ -94,6 +94,18 @@ final class BbxApiConfidentialSepaNotActivatedException
       'BbxApiConfidentialSepaNotActivatedException(code: $code)';
 }
 
+/// An order write failed after its request may have reached the server, so
+/// the order may exist. [reason] names the failure without quoting the
+/// request or the response. Check the order list before trying again.
+final class BbxApiOutcomeUnknownException extends BbxApiException {
+  final String reason;
+
+  const BbxApiOutcomeUnknownException(this.reason);
+
+  @override
+  String toString() => 'BbxApiOutcomeUnknownException($reason)';
+}
+
 /// The response did not have the expected shape.
 final class BbxApiFormatException extends BbxApiException {
   final String reason;

@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:bbx_api/bbx_api.dart';
 import 'package:dio/dio.dart';
@@ -478,15 +480,164 @@ void main() {
         ),
       );
     });
+  });
 
-    test('a non-200 status is an HTTP error', () async {
+  group('unknown outcomes', () {
+    Future<OrderSummary> sell() => orders.sellToBalance(
+      fiatCurrency: 'CAD',
+      bitcoinNetwork: 'bitcoin',
+      fiatAmount: 5,
+    );
+
+    Matcher unknown(String reason) => throwsA(
+      isA<BbxApiOutcomeUnknownException>().having(
+        (e) => e.reason,
+        'reason',
+        reason,
+      ),
+    );
+
+    void fail(Object error) {
+      dio = Dio(BaseOptions(baseUrl: 'https://api.test'))
+        ..httpClientAdapter = _Throwing(error);
+      orders = BbxApiClient(dio).orders;
+    }
+
+    test('a non-200 success status is unknown', () async {
       answer({'result': _order}, status: 204);
-      await expectLater(sell(), throwsA(isA<BbxApiHttpException>()));
+      await expectLater(sell(), unknown('status 204'));
     });
 
-    test('a result that is not an object is a format error', () async {
+    test('an unreadable success is unknown', () async {
       answer({'result': null});
-      await expectLater(sell(), throwsA(isA<BbxApiFormatException>()));
+      await expectLater(sell(), unknown('invalid result'));
+    });
+
+    for (final status in [502, 504]) {
+      test('a $status gateway error is unknown', () async {
+        answer(<String, Object?>{}, status: status);
+        await expectLater(sell(), unknown('badResponse'));
+      });
+    }
+
+    test('another error status is rethrown', () async {
+      answer(<String, Object?>{}, status: 500);
+      await expectLater(
+        sell(),
+        throwsA(
+          isA<DioException>().having(
+            (e) => e.type,
+            'type',
+            DioExceptionType.badResponse,
+          ),
+        ),
+      );
+    });
+
+    for (final type in [
+      DioExceptionType.sendTimeout,
+      DioExceptionType.receiveTimeout,
+      DioExceptionType.transformTimeout,
+      DioExceptionType.connectionError,
+    ]) {
+      test('${type.name} is unknown', () async {
+        fail(DioException(requestOptions: RequestOptions(), type: type));
+        await expectLater(sell(), unknown(type.name));
+      });
+    }
+
+    test('a socket closed during the response is unknown', () async {
+      fail(const SocketException('closed'));
+      await expectLater(sell(), unknown('unknown'));
+    });
+
+    for (final type in [
+      DioExceptionType.connectionTimeout,
+      DioExceptionType.badCertificate,
+      DioExceptionType.cancel,
+    ]) {
+      test('${type.name} is rethrown', () async {
+        fail(DioException(requestOptions: RequestOptions(), type: type));
+        await expectLater(
+          sell(),
+          throwsA(isA<DioException>().having((e) => e.type, 'type', type)),
+        );
+      });
+    }
+
+    test('a refusal from the caller\'s interceptor is rethrown', () async {
+      answer({'result': _order});
+      dio.interceptors.add(
+        InterceptorsWrapper(
+          onRequest: (options, handler) => handler.reject(
+            DioException(requestOptions: options, error: const _NoKey()),
+          ),
+        ),
+      );
+      await expectLater(
+        sell(),
+        throwsA(
+          isA<DioException>().having((e) => e.error, 'error', isA<_NoKey>()),
+        ),
+      );
+    });
+
+    test('a JSON-RPC refusal is rethrown', () async {
+      answer({
+        'error': {'code': -32000, 'message': 'nope'},
+      });
+      await expectLater(sell(), throwsA(isA<BbxApiRpcException>()));
+    });
+
+    test('each order write reports an unknown outcome', () async {
+      for (final write in <Future<OrderSummary> Function()>[
+        () => orders.createOrderBuy(
+          fiatCurrency: 'CAD',
+          network: 'bitcoin',
+          isOwner: true,
+          address: 'bc1q',
+          fiatAmount: 5,
+        ),
+        sell,
+        () => orders.sellToRecipient(
+          recipientId: 'r',
+          bitcoinNetwork: 'bitcoin',
+          fiatAmount: 5,
+        ),
+        () => orders.createWithdrawalOrder(fiatAmount: 5, recipientId: 'r'),
+      ]) {
+        answer({'result': null});
+        await expectLater(write(), unknown('invalid result'));
+      }
+    });
+
+    test('a confirm is not an order write', () async {
+      answer({'result': null});
+      await expectLater(
+        orders.confirmOrderSummary('o-1'),
+        throwsA(isA<BbxApiFormatException>()),
+      );
     });
   });
+}
+
+class _NoKey implements Exception {
+  const _NoKey();
+}
+
+/// Fails every request with [error].
+class _Throwing implements HttpClientAdapter {
+  final Object error;
+
+  _Throwing(this.error);
+
+  @override
+  Future<ResponseBody> fetch(
+    RequestOptions options,
+    Stream<Uint8List>? requestStream,
+    Future<void>? cancelFuture,
+  ) async => throw error;
+
+  @override
+  void close({bool force = false}) {}
 }
