@@ -4002,5 +4002,6 @@
   "settingsSearchPermissionsKeywords": "notificações|tarefas em segundo plano|bateria|alertas",
   "wizardBackgroundTasksDescription": "Verifica pagamentos com a app fechada.",
   "wizardNotificationsDescription": "Saiba quando chega um pagamento.",
-  "pinCodeLengthHint": "Introduza {min} a {max} dígitos"
+  "pinCodeLengthHint": "Introduza {min} a {max} dígitos",
+  "exchangeOrderOutcomeUnknownError": "Não foi possível confirmar se a sua ordem foi criada. Verifique as suas transações antes de tentar novamente."
 }

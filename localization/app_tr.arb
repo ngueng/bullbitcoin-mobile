@@ -9682,5 +9682,6 @@
   "settingsSearchPermissionsKeywords": "bildirimler|arka plan görevleri|pil|uyarılar",
   "wizardBackgroundTasksDescription": "Uygulama kapalıyken ödemeleri kontrol eder.",
   "wizardNotificationsDescription": "Bir ödeme geldiğinde haberdar olun.",
-  "pinCodeLengthHint": "{min} ile {max} arasında rakam girin"
+  "pinCodeLengthHint": "{min} ile {max} arasında rakam girin",
+  "exchangeOrderOutcomeUnknownError": "Siparişinizin oluşturulup oluşturulmadığını doğrulayamadık. Tekrar denemeden önce işlemlerinizi kontrol edin."
 }

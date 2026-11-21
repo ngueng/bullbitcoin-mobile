@@ -3067,5 +3067,6 @@
   "settingsSearchPermissionsKeywords": "ծանուցումներ|ֆոնային առաջադրանքներ|մարտկոց|ազդանշաններ",
   "wizardBackgroundTasksDescription": "Ստուգում է վճարումները, երբ հավելվածը փակ է։",
   "wizardNotificationsDescription": "Իմացեք, երբ վճարում է ստացվում։",
-  "pinCodeLengthHint": "Մուտքագրեք {min}-ից {max} թվանշան"
+  "pinCodeLengthHint": "Մուտքագրեք {min}-ից {max} թվանշան",
+  "exchangeOrderOutcomeUnknownError": "Չհաջողվեց հաստատել՝ արդյոք ձեր պատվերը ստեղծվել է։ Նորից փորձելուց առաջ ստուգեք ձեր գործարքները։"
 }

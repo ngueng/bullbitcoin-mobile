@@ -9929,5 +9929,6 @@
   "settingsSearchPermissionsKeywords": "notifications|background kaam|battery|alerts",
   "wizardBackgroundTasksDescription": "App band hone par payment check karta hai.",
   "wizardNotificationsDescription": "Payment aane par jaanein.",
-  "pinCodeLengthHint": "{min} se {max} ank daalein"
+  "pinCodeLengthHint": "{min} se {max} ank daalein",
+  "exchangeOrderOutcomeUnknownError": "Hum pushti nahi kar sake ki aapka order bana ya nahi. Dobara koshish karne se pehle apne len-den dekhein."
 }

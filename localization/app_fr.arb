@@ -4248,5 +4248,6 @@
   "receiveEditAmount": "Modifier le montant",
   "receiveRecipientMessageHint": "Facultatif, visible par le payeur",
   "receiveVerifyBitbox": "Vérifier sur BitBox",
-  "receiveFeeDetails": "Détail des frais"
+  "receiveFeeDetails": "Détail des frais",
+  "exchangeOrderOutcomeUnknownError": "Nous n'avons pas pu confirmer la création de votre ordre. Vérifiez vos transactions avant de réessayer."
 }

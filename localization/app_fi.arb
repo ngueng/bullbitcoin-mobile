@@ -3966,5 +3966,6 @@
   "settingsSearchPermissionsKeywords": "ilmoitukset|taustatehtävät|akku|hälytykset",
   "wizardBackgroundTasksDescription": "Tarkistaa maksut, kun sovellus on suljettu.",
   "wizardNotificationsDescription": "Tiedät, kun maksu saapuu.",
-  "pinCodeLengthHint": "Syötä {min}–{max} numeroa"
+  "pinCodeLengthHint": "Syötä {min}–{max} numeroa",
+  "exchangeOrderOutcomeUnknownError": "Emme voineet varmistaa, luotiinko tilauksesi. Tarkista tapahtumasi ennen kuin yrität uudelleen."
 }

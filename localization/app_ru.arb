@@ -3984,5 +3984,6 @@
   "settingsSearchPermissionsKeywords": "уведомления|фоновые задачи|батарея|оповещения",
   "wizardBackgroundTasksDescription": "Проверяет платежи, когда приложение закрыто.",
   "wizardNotificationsDescription": "Узнавайте о поступлении платежей.",
-  "pinCodeLengthHint": "Введите от {min} до {max} цифр"
+  "pinCodeLengthHint": "Введите от {min} до {max} цифр",
+  "exchangeOrderOutcomeUnknownError": "Не удалось подтвердить, был ли создан ваш заказ. Проверьте свои транзакции, прежде чем пытаться снова."
 }

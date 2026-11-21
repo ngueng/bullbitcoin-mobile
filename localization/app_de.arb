@@ -4180,5 +4180,6 @@
   "wizardNotificationsDescription": "Erfahren Sie, wann eine Zahlung eingeht.",
   "pinCodeLengthHint": "Gib {min} bis {max} Ziffern ein",
   "pinCodeShowPin": "PIN anzeigen",
-  "pinCodeHidePin": "PIN verbergen"
+  "pinCodeHidePin": "PIN verbergen",
+  "exchangeOrderOutcomeUnknownError": "Wir konnten nicht bestätigen, ob Ihre Anfrage erstellt wurde. Bitte prüfen Sie Ihre Transaktionen, bevor Sie es erneut versuchen."
 }

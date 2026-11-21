@@ -8283,5 +8283,6 @@
   "settingsSearchPermissionsKeywords": "известия|фонови задачи|батерия|сигнали",
   "wizardBackgroundTasksDescription": "Проверява плащания при затворено приложение.",
   "wizardNotificationsDescription": "Разберете, когато пристигне плащане.",
-  "pinCodeLengthHint": "Въведете от {min} до {max} цифри"
+  "pinCodeLengthHint": "Въведете от {min} до {max} цифри",
+  "exchangeOrderOutcomeUnknownError": "Не успяхме да потвърдим дали заявката ви е създадена. Проверете транзакциите си, преди да опитате отново."
 }

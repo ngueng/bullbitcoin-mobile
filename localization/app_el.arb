@@ -9682,5 +9682,6 @@
   "settingsSearchPermissionsKeywords": "ειδοποιήσεις|εργασίες παρασκηνίου|μπαταρία|ειδοποιήσεις πληρωμών",
   "wizardBackgroundTasksDescription": "Ελέγχει πληρωμές με κλειστή την εφαρμογή.",
   "wizardNotificationsDescription": "Μάθετε πότε φτάνει μια πληρωμή.",
-  "pinCodeLengthHint": "Εισαγάγετε {min} έως {max} ψηφία"
+  "pinCodeLengthHint": "Εισαγάγετε {min} έως {max} ψηφία",
+  "exchangeOrderOutcomeUnknownError": "Δεν μπορέσαμε να επιβεβαιώσουμε αν δημιουργήθηκε η εντολή σας. Ελέγξτε τις συναλλαγές σας πριν δοκιμάσετε ξανά."
 }

@@ -9868,5 +9868,6 @@
   "settingsSearchPermissionsKeywords": "বিজ্ঞপ্তি|ব্যাকগ্রাউন্ড কাজ|ব্যাটারি|সতর্কতা",
   "wizardBackgroundTasksDescription": "অ্যাপ বন্ধ থাকলেও পেমেন্ট দেখে।",
   "wizardNotificationsDescription": "পেমেন্ট এলে জানুন।",
-  "pinCodeLengthHint": "{min} থেকে {max}টি সংখ্যা লিখুন"
+  "pinCodeLengthHint": "{min} থেকে {max}টি সংখ্যা লিখুন",
+  "exchangeOrderOutcomeUnknownError": "আপনার অর্ডার তৈরি হয়েছে কি না, আমরা নিশ্চিত করতে পারিনি। আবার চেষ্টা করার আগে আপনার লেনদেনগুলো দেখুন।"
 }

@@ -9682,5 +9682,6 @@
   "settingsSearchPermissionsKeywords": "اعلان‌ها|وظایف پس‌زمینه|باتری|هشدارها",
   "wizardBackgroundTasksDescription": "بررسی پرداخت‌ها وقتی برنامه بسته است.",
   "wizardNotificationsDescription": "از رسیدن پرداخت باخبر شوید.",
-  "pinCodeLengthHint": "{min} تا {max} رقم وارد کنید"
+  "pinCodeLengthHint": "{min} تا {max} رقم وارد کنید",
+  "exchangeOrderOutcomeUnknownError": "نتوانستیم تأیید کنیم که سفارش شما ایجاد شده است یا نه. پیش از تلاش دوباره، تراکنش‌های خود را بررسی کنید."
 }

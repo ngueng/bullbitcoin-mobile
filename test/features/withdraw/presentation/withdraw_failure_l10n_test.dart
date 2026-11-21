@@ -21,6 +21,7 @@ final _everyFailure = <WithdrawFailure>[
     logMessage: _rawReason,
   ),
   const WithdrawConfidentialSepaNotActivatedFailure(_rawReason),
+  const WithdrawOutcomeUnknownFailure(),
   const WithdrawUnexpectedFailure(_rawReason),
 ];
 
@@ -175,6 +176,22 @@ void main() {
         );
         expect(message, contains('CAD'), reason: 'currency lost for $locale');
       }
+    });
+
+    testWidgets('an unknown outcome asks to check the transactions', (
+      tester,
+    ) async {
+      final unknown = await _translate(
+        tester,
+        const WithdrawOutcomeUnknownFailure(),
+      );
+      final generic = await _translate(
+        tester,
+        const WithdrawUnexpectedFailure(),
+      );
+
+      expect(unknown, contains('transactions'));
+      expect(unknown, isNot(generic));
     });
   });
 }

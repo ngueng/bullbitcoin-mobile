@@ -33,6 +33,7 @@ final _everyFailure = <PayFailure>[
   const PayFeesUnavailableFailure(_rawReason),
   const PayQuoteExpiredFailure(_rawReason),
   const PayQuoteUnavailableFailure(_rawReason),
+  const PayOutcomeUnknownFailure(),
   const PayUnexpectedFailure(_rawReason),
 ];
 
@@ -176,6 +177,19 @@ void main() {
       expect(message, contains('CAD'));
       expect(message, isNot(contains('bc1qsecret')));
       expect(message, isNot(contains('xprv9s21ZrQH143K3')));
+    });
+
+    testWidgets('an unknown outcome asks to check the transactions', (
+      tester,
+    ) async {
+      final unknown = await _translate(
+        tester,
+        const PayOutcomeUnknownFailure(),
+      );
+      final generic = await _translate(tester, const PayUnexpectedFailure());
+
+      expect(unknown, contains('transactions'));
+      expect(unknown, isNot(generic));
     });
   });
 }

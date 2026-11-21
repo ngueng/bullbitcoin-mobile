@@ -9686,5 +9686,6 @@
   "settingsSearchPermissionsKeywords": "การแจ้งเตือน|งานเบื้องหลัง|แบตเตอรี่|การเตือน",
   "wizardBackgroundTasksDescription": "ตรวจสอบการชำระเงินขณะปิดแอป",
   "wizardNotificationsDescription": "รู้ทันทีเมื่อมีการชำระเงินเข้า",
-  "pinCodeLengthHint": "ป้อนตัวเลข {min} ถึง {max} หลัก"
+  "pinCodeLengthHint": "ป้อนตัวเลข {min} ถึง {max} หลัก",
+  "exchangeOrderOutcomeUnknownError": "เราไม่สามารถยืนยันได้ว่าคำสั่งซื้อของคุณถูกสร้างแล้วหรือไม่ กรุณาตรวจสอบธุรกรรมของคุณก่อนลองอีกครั้ง"
 }

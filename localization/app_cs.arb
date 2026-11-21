@@ -9682,5 +9682,6 @@
   "settingsSearchPermissionsKeywords": "oznámení|úlohy na pozadí|baterie|upozornění",
   "wizardBackgroundTasksDescription": "Kontroluje platby při zavřené aplikaci.",
   "wizardNotificationsDescription": "Dozvíte se, když dorazí platba.",
-  "pinCodeLengthHint": "Zadejte {min} až {max} číslic"
+  "pinCodeLengthHint": "Zadejte {min} až {max} číslic",
+  "exchangeOrderOutcomeUnknownError": "Nepodařilo se ověřit, zda byla vaše objednávka vytvořena. Než to zkusíte znovu, zkontrolujte své transakce."
 }

@@ -9685,5 +9685,6 @@
   "settingsSearchPermissionsKeywords": "الإشعارات|المهام في الخلفية|البطارية|التنبيهات",
   "wizardBackgroundTasksDescription": "يتحقق من المدفوعات والتطبيق مغلق.",
   "wizardNotificationsDescription": "اعرف عند وصول دفعة.",
-  "pinCodeLengthHint": "أدخل من {min} إلى {max} أرقام"
+  "pinCodeLengthHint": "أدخل من {min} إلى {max} أرقام",
+  "exchangeOrderOutcomeUnknownError": "تعذّر علينا التأكد مما إذا كان طلبك قد أُنشئ. يُرجى التحقق من معاملاتك قبل المحاولة مرة أخرى."
 }

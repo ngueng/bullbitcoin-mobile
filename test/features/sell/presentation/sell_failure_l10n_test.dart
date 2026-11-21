@@ -35,6 +35,7 @@ final _everyFailure = <SellFailure>[
   const SellFeesUnavailableFailure(_rawReason),
   const SellQuoteExpiredFailure(_rawReason),
   const SellQuoteUnavailableFailure(_rawReason),
+  const SellOutcomeUnknownFailure(),
   const SellUnexpectedFailure(_rawReason),
 ];
 
@@ -129,6 +130,19 @@ void main() {
           reason: '${failure.runtimeType} is indistinguishable from "oops"',
         );
       }
+    });
+
+    testWidgets('an unknown outcome asks to check the transactions', (
+      tester,
+    ) async {
+      final unknown = await _translate(
+        tester,
+        const SellOutcomeUnknownFailure(),
+      );
+      final generic = await _translate(tester, const SellUnexpectedFailure());
+
+      expect(unknown, contains('transactions'));
+      expect(unknown, isNot(generic));
     });
   });
 }

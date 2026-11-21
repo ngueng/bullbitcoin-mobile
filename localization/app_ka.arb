@@ -3181,5 +3181,6 @@
   "settingsSearchPermissionsKeywords": "შეტყობინებები|ფონური ამოცანები|ბატარეა|გაფრთხილებები",
   "wizardBackgroundTasksDescription": "ამოწმებს გადახდებს, როცა აპი დახურულია.",
   "wizardNotificationsDescription": "გაიგეთ, როცა გადახდა შემოვა.",
-  "pinCodeLengthHint": "შეიყვანეთ {min}-დან {max}-მდე ციფრი"
+  "pinCodeLengthHint": "შეიყვანეთ {min}-დან {max}-მდე ციფრი",
+  "exchangeOrderOutcomeUnknownError": "ვერ დავადასტურეთ, შეიქმნა თუ არა თქვენი შეკვეთა. ხელახლა ცდამდე შეამოწმეთ თქვენი ტრანზაქციები."
 }

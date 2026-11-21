@@ -3067,5 +3067,6 @@
   "settingsSearchPermissionsKeywords": "thông báo|tác vụ nền|pin|cảnh báo",
   "wizardBackgroundTasksDescription": "Kiểm tra thanh toán khi ứng dụng đóng.",
   "wizardNotificationsDescription": "Biết khi có khoản thanh toán đến.",
-  "pinCodeLengthHint": "Nhập từ {min} đến {max} chữ số"
+  "pinCodeLengthHint": "Nhập từ {min} đến {max} chữ số",
+  "exchangeOrderOutcomeUnknownError": "Chúng tôi không thể xác nhận đơn hàng của bạn đã được tạo hay chưa. Vui lòng kiểm tra giao dịch trước khi thử lại."
 }

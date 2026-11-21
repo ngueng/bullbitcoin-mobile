@@ -3984,5 +3984,6 @@
   "settingsSearchPermissionsKeywords": "通知|后台任务|电池|提醒",
   "wizardBackgroundTasksDescription": "在应用关闭时检查付款。",
   "wizardNotificationsDescription": "收到付款时通知您。",
-  "pinCodeLengthHint": "请输入 {min} 到 {max} 位数字"
+  "pinCodeLengthHint": "请输入 {min} 到 {max} 位数字",
+  "exchangeOrderOutcomeUnknownError": "我们无法确认您的订单是否已创建。请先查看您的交易记录，再重试。"
 }

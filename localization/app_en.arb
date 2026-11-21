@@ -14100,5 +14100,9 @@
   "receiveFeeDetails": "Fee details",
   "@receiveFeeDetails": {
     "description": "Accessible label for the filled action opening the Lightning fee breakdown."
+  },
+  "exchangeOrderOutcomeUnknownError": "We could not confirm whether your order was created. Check your transactions before you try again.",
+  "@exchangeOrderOutcomeUnknownError": {
+    "description": "Shown when an exchange order request failed after it may have reached the server, so the order may exist."
   }
 }

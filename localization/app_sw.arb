@@ -3076,5 +3076,6 @@
   "settingsSearchPermissionsKeywords": "arifa|kazi za chinichini|betri|tahadhari",
   "wizardBackgroundTasksDescription": "Hukagua malipo programu ikiwa imefungwa.",
   "wizardNotificationsDescription": "Jua malipo yanapofika.",
-  "pinCodeLengthHint": "Weka tarakimu {min} hadi {max}"
+  "pinCodeLengthHint": "Weka tarakimu {min} hadi {max}",
+  "exchangeOrderOutcomeUnknownError": "Hatukuweza kuthibitisha kama oda yako iliundwa. Angalia miamala yako kabla ya kujaribu tena."
 }

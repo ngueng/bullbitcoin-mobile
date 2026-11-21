@@ -4110,5 +4110,6 @@
   "settingsSearchPermissionsKeywords": "notifiche|attività in background|batteria|avvisi",
   "wizardBackgroundTasksDescription": "Controlla i pagamenti ad app chiusa.",
   "wizardNotificationsDescription": "Sappi quando arriva un pagamento.",
-  "pinCodeLengthHint": "Inserisci da {min} a {max} cifre"
+  "pinCodeLengthHint": "Inserisci da {min} a {max} cifre",
+  "exchangeOrderOutcomeUnknownError": "Non siamo riusciti a confermare se il tuo ordine è stato creato. Controlla le tue transazioni prima di riprovare."
 }

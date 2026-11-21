@@ -9860,5 +9860,6 @@
   "settingsSearchPermissionsKeywords": "सूचनाएँ|बैकग्राउंड कार्य|बैटरी|अलर्ट",
   "wizardBackgroundTasksDescription": "ऐप बंद होने पर भुगतान जाँचता है।",
   "wizardNotificationsDescription": "भुगतान आने पर जानें।",
-  "pinCodeLengthHint": "{min} से {max} अंक दर्ज करें"
+  "pinCodeLengthHint": "{min} से {max} अंक दर्ज करें",
+  "exchangeOrderOutcomeUnknownError": "हम पुष्टि नहीं कर सके कि आपका ऑर्डर बना या नहीं। दोबारा कोशिश करने से पहले अपने लेन-देन देखें।"
 }
