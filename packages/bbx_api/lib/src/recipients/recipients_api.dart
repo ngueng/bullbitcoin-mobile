@@ -23,7 +23,7 @@ class RecipientsApi {
   RecipientsApi(this._client);
 
   /// The user's recipients, filtered by `recipientType` and `isDefault`
-  /// when given. A missing element list is empty.
+  /// when given. A missing element list is a format error.
   Future<List<MyRecipient>> listMyRecipients({
     List<String>? recipientTypes,
     bool? isDefault,
@@ -31,7 +31,11 @@ class RecipientsApi {
     final result = await _result('listMyRecipients', {
       'filters': {'recipientTypes': ?recipientTypes, 'isDefault': ?isDefault},
     });
-    return readList(result['elements'], 'elements', MyRecipient.fromJson);
+    return readRequiredList(
+      result['elements'],
+      'elements',
+      MyRecipient.fromJson,
+    );
   }
 
   /// Creates a recipient of [recipientType] paid to [address].

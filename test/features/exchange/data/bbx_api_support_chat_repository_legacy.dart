@@ -134,32 +134,6 @@ final oldRepository = <String, Object?>{
       ],
     ],
   ),
-  'no elements, page null of null': (
-    [
-      (
-        '/ak/api-users',
-        '{"id":1,"jsonrpc":"2.0","method":"getUserSummary","params":{}}',
-      ),
-      (
-        '/ak/api-commcenter',
-        '{"jsonrpc":"2.0","id":"0","method":"listMessages","params":{"sortBy":{"id":"createdAt","sort":"desc"},"paginator":{"page":1,"pageSize":10}}}',
-      ),
-    ],
-    ['ok', []],
-  ),
-  'no elements, page 3 of 25': (
-    [
-      (
-        '/ak/api-users',
-        '{"id":1,"jsonrpc":"2.0","method":"getUserSummary","params":{}}',
-      ),
-      (
-        '/ak/api-commcenter',
-        '{"jsonrpc":"2.0","id":"0","method":"listMessages","params":{"sortBy":{"id":"createdAt","sort":"desc"},"paginator":{"page":3,"pageSize":25}}}',
-      ),
-    ],
-    ['ok', []],
-  ),
   'no result, page null of null': (
     [
       (

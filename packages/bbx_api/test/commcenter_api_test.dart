@@ -35,18 +35,22 @@ void main() {
     expect(announcement.updatedAt, DateTime.utc(2026, 11, 20, 10));
   });
 
-  for (final body in [
-    {'result': null},
-    {'result': <String, Object?>{}},
-  ]) {
-    test('$body is an empty list', () async {
-      expect(
-        await BbxApiClient(FakeHttp.dio(body: body)).commcenter
-            .listAnnouncements(),
-        isEmpty,
-      );
-    });
-  }
+  test('a null result is an empty list', () async {
+    expect(
+      await BbxApiClient(FakeHttp.dio(body: {'result': null})).commcenter
+          .listAnnouncements(),
+      isEmpty,
+    );
+  });
+
+  test('a missing element list is a format error', () async {
+    await expectLater(
+      BbxApiClient(FakeHttp.dio(body: {'result': <String, Object?>{}}))
+          .commcenter
+          .listAnnouncements(),
+      throwsA(isA<BbxApiFormatException>()),
+    );
+  });
 
   for (final updatedAt in [null, 'not a date']) {
     test('an invalid updatedAt ($updatedAt) is a format error', () async {

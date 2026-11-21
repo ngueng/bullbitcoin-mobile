@@ -55,7 +55,7 @@ class OrdersApi {
       );
 
   /// One page of the user's orders, newest first. A missing element list is
-  /// empty.
+  /// a format error.
   Future<OrderSummaryList> listOrderSummaries({
     int page = 1,
     int pageSize = 50,
@@ -71,11 +71,9 @@ class OrdersApi {
       ),
       'result',
     );
-    final elements = result['elements'];
-    if (elements == null) return const OrderSummaryList(orders: []);
     final orders = <OrderSummary>[];
     final rejected = <BbxApiFormatException>[];
-    for (final element in read<List<dynamic>>(elements, 'elements')) {
+    for (final element in read<List<dynamic>>(result['elements'], 'elements')) {
       try {
         orders.add(
           OrderSummary.fromJson(

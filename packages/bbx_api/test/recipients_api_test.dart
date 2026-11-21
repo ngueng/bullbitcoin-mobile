@@ -87,8 +87,19 @@ void main() {
       expect(recipient.createdAt, '2026-11-20T10:00:00Z');
     });
 
-    test('sends empty filters when none is given', () async {
+    test('a missing element list is a format error', () async {
       answer({'result': <String, Object?>{}});
+
+      await expectLater(
+        api.listMyRecipients(),
+        throwsA(isA<BbxApiFormatException>()),
+      );
+    });
+
+    test('sends empty filters when none is given', () async {
+      answer({
+        'result': {'elements': <Object?>[]},
+      });
 
       expect(await api.listMyRecipients(), isEmpty);
       expect(

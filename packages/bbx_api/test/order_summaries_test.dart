@@ -216,12 +216,12 @@ void main() {
       expect(list.rejected, hasLength(2));
     });
 
-    test('missing elements are an empty list', () async {
-      final list = await BbxApiClient(
-        FakeHttp.dio(body: {'result': <String, Object?>{}}),
-      ).orders.listOrderSummaries();
-      expect(list.orders, isEmpty);
-      expect(list.rejected, isEmpty);
+    test('missing elements are a format error', () async {
+      await expectLater(
+        BbxApiClient(FakeHttp.dio(body: {'result': <String, Object?>{}})).orders
+            .listOrderSummaries(),
+        throwsA(isA<BbxApiFormatException>()),
+      );
     });
 
     for (final body in [

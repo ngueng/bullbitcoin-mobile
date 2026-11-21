@@ -99,12 +99,12 @@ void main() {
       expect(second.attachments, isNull);
     });
 
-    test('a missing element list is empty', () async {
-      expect(
-        await BbxApiClient(FakeHttp.dio(body: {'result': <String, Object?>{}}))
+    test('a missing element list is a format error', () async {
+      await expectLater(
+        BbxApiClient(FakeHttp.dio(body: {'result': <String, Object?>{}}))
             .commcenter
             .listMessages(),
-        isEmpty,
+        throwsA(isA<BbxApiFormatException>()),
       );
     });
 

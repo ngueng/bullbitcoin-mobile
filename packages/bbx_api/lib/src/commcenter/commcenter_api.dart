@@ -12,7 +12,7 @@ class CommcenterApi {
   CommcenterApi(this._client);
 
   /// One page of announcements, most recently updated first. A missing
-  /// result or element list is empty.
+  /// result is empty; a missing element list is a format error.
   Future<List<Announcement>> listAnnouncements({
     int page = 1,
     int pageSize = 5,
@@ -29,11 +29,15 @@ class CommcenterApi {
       'result',
     );
     if (result == null) return const [];
-    return readList(result['elements'], 'elements', Announcement.fromJson);
+    return readRequiredList(
+      result['elements'],
+      'elements',
+      Announcement.fromJson,
+    );
   }
 
   /// One page of the user's support chat messages, newest first. A missing
-  /// element list is empty; a missing result is a format error.
+  /// result or element list is a format error.
   Future<List<SupportMessage>> listMessages({
     int page = 1,
     int pageSize = 10,
@@ -49,7 +53,11 @@ class CommcenterApi {
       ),
       'result',
     );
-    return readList(result['elements'], 'elements', SupportMessage.fromJson);
+    return readRequiredList(
+      result['elements'],
+      'elements',
+      SupportMessage.fromJson,
+    );
   }
 
   /// Sends [text] to support from [source]. A `null` [attachments] is sent

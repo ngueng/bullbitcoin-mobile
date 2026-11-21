@@ -47,15 +47,17 @@ class OrderTriggersApi {
   }
 
   /// One page of the user's limit orders, newest first. A missing element
-  /// list is empty.
+  /// list is a format error.
   Future<List<LimitOrder>> listLimitOrders({
     int page = 1,
     int pageSize = 50,
-  }) async => _limitOrders(
-    await _limitOrderCall('listLimitOrders', {
+  }) async => readRequiredList(
+    (await _limitOrderCall('listLimitOrders', {
       'paginator': {'page': page, 'pageSize': pageSize},
       'sortBy': {'id': 'createdAt', 'sort': 'desc'},
-    }),
+    }))['elements'],
+    'elements',
+    LimitOrder.fromJson,
   );
 
   /// The limit order [limitOrderId].

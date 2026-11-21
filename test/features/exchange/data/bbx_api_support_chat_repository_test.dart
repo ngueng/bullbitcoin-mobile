@@ -193,10 +193,6 @@ void main() {
           },
         },
       },
-      'no elements': {
-        'getUserSummary': {'result': _summary},
-        'listMessages': {'result': <String, Object?>{}},
-      },
       'no result': {
         'getUserSummary': {'result': _summary},
         'listMessages': {'result': null},
@@ -262,6 +258,19 @@ void main() {
         });
       }
     }
+
+    test('no element list is a load failure', () async {
+      final outcome = _outcome(
+        await _new(
+          _ChatHttp({
+            'getUserSummary': {'result': _summary},
+            'listMessages': {'result': <String, Object?>{}},
+          }),
+        ).getMessages(),
+      );
+
+      expect(outcome, LoadMessagesFailure);
+    });
 
     test('reads the messages and sends the page', () async {
       final ((_, oldOutcome), (sent, outcome)) = await _both(

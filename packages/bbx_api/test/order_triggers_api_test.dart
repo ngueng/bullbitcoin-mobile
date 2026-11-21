@@ -204,9 +204,12 @@ void main() {
       expect(order.address, 'bc1qaddress');
     });
 
-    test('a missing element list is empty', () async {
+    test('a missing element list fails a list but not a cancel', () async {
       answer({'result': <String, Object?>{}});
-      expect(await api.listLimitOrders(), isEmpty);
+      await expectLater(
+        api.listLimitOrders(),
+        throwsA(isA<BbxApiFormatException>()),
+      );
 
       answer({'result': <String, Object?>{}});
       expect(await api.cancelAllLimitOrders(), isEmpty);

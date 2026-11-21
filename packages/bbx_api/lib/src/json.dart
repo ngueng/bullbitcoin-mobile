@@ -12,10 +12,15 @@ List<T> readList<T>(
   Object? value,
   String field,
   T Function(Map<String, dynamic>) fromJson,
-) {
-  if (value == null) return const [];
-  return [
-    for (final element in read<List<dynamic>>(value, field))
-      fromJson(read<Map<String, dynamic>>(element, field)),
-  ];
-}
+) => value == null ? const [] : readRequiredList(value, field, fromJson);
+
+/// Reads a JSON array of objects; a missing array is a format error, so only
+/// an empty array means empty.
+List<T> readRequiredList<T>(
+  Object? value,
+  String field,
+  T Function(Map<String, dynamic>) fromJson,
+) => [
+  for (final element in read<List<dynamic>>(value, field))
+    fromJson(read<Map<String, dynamic>>(element, field)),
+];

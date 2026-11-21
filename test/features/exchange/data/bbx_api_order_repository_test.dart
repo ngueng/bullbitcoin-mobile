@@ -329,13 +329,13 @@ void main() {
       );
     });
 
-    test('missing elements are an empty history', () async {
+    test('missing elements are a load failure', () async {
       expect(
-        _valueOf(
+        _failureOf(
           await _repository(FakeBbxHttp(body: {'result': <String, Object?>{}}))
               .getOrders(),
         ),
-        isEmpty,
+        isA<ExchangeOrderLoadFailure>(),
       );
     });
 

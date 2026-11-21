@@ -98,7 +98,11 @@ void main() {
     }
 
     test('getDefaultWallets asks for the default address recipients', () async {
-      final http = FakeBbxHttp(body: {'result': <String, Object?>{}});
+      final http = FakeBbxHttp(
+        body: {
+          'result': {'elements': <Object?>[]},
+        },
+      );
 
       await _repository(http).getDefaultWallets();
 
@@ -163,9 +167,13 @@ void main() {
       ));
     });
 
-    test('no element list is no default wallet', () async {
+    test('an empty element list is no default wallet', () async {
       final wallets = await _repository(
-        FakeBbxHttp(body: {'result': <String, Object?>{}}),
+        FakeBbxHttp(
+          body: {
+            'result': {'elements': <Object?>[]},
+          },
+        ),
       ).getDefaultWallets();
 
       expect(wallets.bitcoin, isNull);
