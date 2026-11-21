@@ -147,6 +147,10 @@ class CreateBuyOrderUsecase {
             ? order.copyWith(bip21URI: payjoinBip21)
             : order;
         return Ok(orderWithPayjoin);
+      } on BullBitcoinApiOrderOutcomeUnknownException {
+        // The order may exist and pay out to this receiver, so the session is
+        // kept. It expires with the payout window if no order uses it.
+        rethrow;
       } catch (_) {
         // The session would otherwise sit and poll the directory for a day for
         // an order that never existed.
@@ -158,6 +162,13 @@ class CreateBuyOrderUsecase {
         }
         rethrow;
       }
+    } on BullBitcoinApiOrderOutcomeUnknownException catch (e, trace) {
+      log.warning(
+        'Buy order outcome unknown',
+        error: e.runtimeType,
+        trace: trace,
+      );
+      return const Err(BuyOutcomeUnknownFailure());
     } on ExchangeCredentialUnavailableException {
       log.warning('Exchange order unavailable: credential read refused');
       return const Err(BuyUnexpectedFailure());

@@ -26,6 +26,7 @@ extension PayFailureL10n on PayFailure {
     // Never `logMessage`. This arm used to be `unexpected: (m) => m`, which put
     // BDK/LWK/Dio text straight onto the payment screen.
     PayUnsupportedNetworkFailure() => context.loc.networkFeatureUnavailable,
+    PayOutcomeUnknownFailure() ||
     PayUnexpectedFailure() => context.loc.payUnexpectedError,
   };
 }

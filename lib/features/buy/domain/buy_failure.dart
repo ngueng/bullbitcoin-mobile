@@ -52,6 +52,13 @@ final class BuyQuoteUnavailableFailure extends BuyFailure {
   const BuyQuoteUnavailableFailure([super.logMessage]);
 }
 
+/// The exchange may have created the buy order: the request failed after it may
+/// have reached the server. The user checks the order history before trying
+/// again.
+final class BuyOutcomeUnknownFailure extends BuyFailure {
+  const BuyOutcomeUnknownFailure();
+}
+
 /// The catch-all.
 ///
 /// Carries the raw reason in `logMessage` for diagnosis only — the translation

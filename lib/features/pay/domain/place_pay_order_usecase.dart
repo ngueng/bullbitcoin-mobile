@@ -82,6 +82,13 @@ class PlacePayOrderUsecase {
       );
 
       return Ok(order);
+    } on BullBitcoinApiOrderOutcomeUnknownException catch (e, trace) {
+      log.warning(
+        'Pay order outcome unknown',
+        error: e.runtimeType,
+        trace: trace,
+      );
+      return const Err(PayOutcomeUnknownFailure());
     } on ExchangeCredentialUnavailableException {
       log.warning('Exchange order unavailable: credential read refused');
       return const Err(PayUnexpectedFailure());

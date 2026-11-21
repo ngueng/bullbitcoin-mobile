@@ -417,4 +417,13 @@ void main() {
       );
     },
   );
+
+  test('maps an unknown order outcome to its own failure', () async {
+    stubThrow(const BullBitcoinApiOrderOutcomeUnknownException());
+
+    expect(
+      (await run() as Err<Order, SellFailure>).failure,
+      isA<SellOutcomeUnknownFailure>(),
+    );
+  });
 }

@@ -227,6 +227,8 @@ class BbxApiOrderRepository implements ExchangeOrderRepository {
         ),
       );
       return _toOrder(summary) as BuyOrder;
+    } on BullBitcoinApiOrderOutcomeUnknownException {
+      rethrow;
     } on BullBitcoinApiMinAmountException {
       rethrow;
     } on BullBitcoinApiMaxAmountException {
@@ -258,6 +260,8 @@ class BbxApiOrderRepository implements ExchangeOrderRepository {
         ),
       );
       return _toOrder(summary) as SellOrder;
+    } on BullBitcoinApiOrderOutcomeUnknownException {
+      rethrow;
     } on BullBitcoinApiMinAmountException {
       rethrow;
     } on BullBitcoinApiMaxAmountException {
@@ -297,6 +301,8 @@ class BbxApiOrderRepository implements ExchangeOrderRepository {
         redactError: true,
       );
       return _toOrder(summary) as FiatPaymentOrder;
+    } on BullBitcoinApiOrderOutcomeUnknownException {
+      rethrow;
     } on BullBitcoinApiMinAmountException {
       rethrow;
     } on BullBitcoinApiMaxAmountException {
@@ -337,6 +343,8 @@ class BbxApiOrderRepository implements ExchangeOrderRepository {
         ),
       );
       return _toOrder(summary) as WithdrawOrder;
+    } on BullBitcoinApiOrderOutcomeUnknownException {
+      rethrow;
     } on BullBitcoinApiMinAmountException {
       rethrow;
     } on BullBitcoinApiMaxAmountException {
@@ -459,7 +467,8 @@ class BbxApiOrderRepository implements ExchangeOrderRepository {
   );
 
   /// Runs an order creation [call] and turns the server's refusal into the
-  /// app's order exception. With [redactError], any other refusal keeps only
+  /// app's order exception, and an unknown outcome into
+  /// [BullBitcoinApiOrderOutcomeUnknownException]. With [redactError], any other refusal keeps only
   /// its codes.
   static Future<bbx.OrderSummary> _placeOrder(
     String contextMessage,
@@ -468,6 +477,11 @@ class BbxApiOrderRepository implements ExchangeOrderRepository {
   }) async {
     try {
       return await call();
+    } on bbx.BbxApiOutcomeUnknownException catch (_, trace) {
+      Error.throwWithStackTrace(
+        const BullBitcoinApiOrderOutcomeUnknownException(),
+        trace,
+      );
     } on bbx.BbxApiRpcException catch (e) {
       throw switch (e) {
         bbx.BbxApiConfidentialSepaNotActivatedException() =>

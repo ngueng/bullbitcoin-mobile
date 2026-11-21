@@ -965,6 +965,41 @@ void main() {
     });
   });
 
+  group('an unknown outcome', () {
+    // A 200 whose result is unreadable: the order may exist.
+    FakeBbxHttp unreadable() => FakeBbxHttp(body: {'result': null});
+
+    final writes = <String, Future<Object> Function(BbxApiOrderRepository)>{
+      'placeBuyOrder': (r) => r.placeBuyOrder(
+        toAddress: 'bc1address',
+        orderAmount: const FiatAmount(5),
+        currency: FiatCurrency.cad,
+        network: OrderBitcoinNetwork.bitcoin,
+        isOwner: true,
+      ),
+      'placeSellOrder': (r) => r.placeSellOrder(
+        orderAmount: const FiatAmount(5),
+        currency: FiatCurrency.cad,
+        network: OrderBitcoinNetwork.bitcoin,
+      ),
+      'placePayOrder': (r) => r.placePayOrder(
+        orderAmount: const FiatAmount(5),
+        recipientId: 'r-1',
+        network: OrderBitcoinNetwork.bitcoin,
+      ),
+      'placeWithdrawalOrder': (r) =>
+          r.placeWithdrawalOrder(fiatAmount: 5, recipientId: 'r-1'),
+    };
+    for (final MapEntry(key: name, value: write) in writes.entries) {
+      test('$name throws the outcome-unknown exception', () async {
+        await expectLater(
+          write(_repository(unreadable())),
+          throwsA(isA<BullBitcoinApiOrderOutcomeUnknownException>()),
+        );
+      });
+    }
+  });
+
   group('the withdraw paths keep the original stack trace', () {
     // The use-case logs the trace it catches: it must reach the failing call
     // in bbx_api, not stop at the repository's catch block.

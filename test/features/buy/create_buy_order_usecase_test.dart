@@ -1,4 +1,5 @@
 import 'package:bb_mobile/features/exchange/domain/entities/order.dart';
+import 'package:bb_mobile/features/exchange/domain/exchange_errors.dart';
 import 'package:bb_mobile/features/exchange/domain/repositories/exchange_order_repository.dart';
 import 'package:bb_mobile/core/settings/domain/repositories/settings_repository.dart';
 import 'package:bb_mobile/features/settings/domain/settings_entity.dart';
@@ -233,5 +234,118 @@ void main() {
     expect(logged, contains('StateError'));
     expect(logged, isNot(contains('tb1qexampleaddress')));
     expect(logged, isNot(contains('private-directory')));
+  });
+
+  group('a payjoin buy whose order write fails', () {
+    late _MockOrderRepository orders;
+    late _MockPayjoinReceiver receiver;
+    late CreateBuyOrderUsecase usecase;
+
+    setUp(() {
+      orders = _MockOrderRepository();
+      receiver = _MockPayjoinReceiver();
+      final settings = _MockSettingsRepository();
+      final policy = _MockPayjoinPolicyAccess();
+      when(() => settings.fetch()).thenAnswer(
+        (_) async => const SettingsEntity(
+          environment: Environment.testnet,
+          bitcoinUnit: BitcoinUnit.sats,
+          currencyCode: 'CAD',
+        ),
+      );
+      when(() => policy.load()).thenAnswer(
+        (_) async => Ok(
+          PayjoinPolicy(
+            sendEnabled: false,
+            receiveEnabled: false,
+            buyEnabled: true,
+            sellEnabled: false,
+            minimumAmount: PayjoinPolicy.minimumAllowedAmount,
+            sessionLifetime: PayjoinPolicy.minimumSessionLifetime,
+          ),
+        ),
+      );
+      when(() => receiver.start(any())).thenAnswer(
+        (_) async => Ok(
+          PayjoinReceiverSession(
+            status: PayjoinStatus.started,
+            id: 'receiver-1',
+            network: BitcoinNetwork.testnet,
+            walletId: 'wallet-1',
+            payjoinUri: 'bitcoin:tb1qexampleaddress?pj=https://payjo.in/s',
+            createdAt: DateTime(2026),
+            expiresAt: DateTime(2026).add(const Duration(minutes: 6)),
+          ),
+        ),
+      );
+      when(() => receiver.cancel(any()))
+          .thenAnswer((_) async => const Ok(null));
+      usecase = CreateBuyOrderUsecase(
+        mainnetExchangeOrderRepository: orders,
+        testnetExchangeOrderRepository: orders,
+        settingsRepository: settings,
+        payjoinReceiver: receiver,
+        payjoinPolicy: policy,
+      );
+    });
+
+    void failWith(Object error) => when(
+      () => orders.placeBuyOrder(
+        toAddress: any(named: 'toAddress'),
+        orderAmount: any(named: 'orderAmount'),
+        currency: any(named: 'currency'),
+        network: any(named: 'network'),
+        isOwner: any(named: 'isOwner'),
+        payjoinBip21: any(named: 'payjoinBip21'),
+      ),
+    ).thenThrow(error);
+
+    Future<Result<BuyOrder, BuyFailure>> buy() => usecase.execute(
+      toAddress: 'tb1qexampleaddress',
+      orderAmount: const FiatAmount(100),
+      currency: FiatCurrency.cad,
+      isLiquid: false,
+      isOwner: true,
+      payjoinWalletId: 'wallet-1',
+      payjoinAmountSat: 10000,
+    );
+
+    setUpAll(() {
+      registerFallbackValue(const FiatAmount(0));
+      registerFallbackValue(FiatCurrency.cad);
+      registerFallbackValue(OrderBitcoinNetwork.bitcoin);
+    });
+
+    test('an unknown outcome keeps the receiver', () async {
+      failWith(const BullBitcoinApiOrderOutcomeUnknownException());
+
+      final result = await buy();
+
+      expect(
+        result,
+        isA<Err<BuyOrder, BuyFailure>>().having(
+          (e) => e.failure,
+          'failure',
+          isA<BuyOutcomeUnknownFailure>(),
+        ),
+      );
+      verifyNever(() => receiver.cancel(any()));
+    });
+
+    test('a refusal cancels the receiver', () async {
+      failWith(Exception('refused'));
+
+      final result = await buy();
+
+      expect(
+        result,
+        isA<Err<BuyOrder, BuyFailure>>().having(
+          (e) => e.failure,
+          'failure',
+          isA<BuyUnexpectedFailure>(),
+        ),
+      );
+      verify(() => receiver.cancel('receiver-1')).called(1);
+    });
   });
 }

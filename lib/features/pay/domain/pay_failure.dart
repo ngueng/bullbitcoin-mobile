@@ -83,6 +83,13 @@ final class PayQuoteUnavailableFailure extends PayFailure {
   const PayQuoteUnavailableFailure([super.logMessage]);
 }
 
+/// The exchange may have created the pay order: the request failed after it may
+/// have reached the server. The user checks the order history before trying
+/// again.
+final class PayOutcomeUnknownFailure extends PayFailure {
+  const PayOutcomeUnknownFailure();
+}
+
 /// The catch-all.
 ///
 /// Carries the raw reason in `logMessage` for diagnosis only — the translation

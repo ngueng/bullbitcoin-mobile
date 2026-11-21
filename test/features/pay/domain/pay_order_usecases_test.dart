@@ -217,6 +217,25 @@ void main() {
       },
     );
 
+    test('an unknown order outcome is its own failure', () async {
+      when(
+        () => mainnet.placePayOrder(
+          orderAmount: any(named: 'orderAmount'),
+          recipientId: any(named: 'recipientId'),
+          network: any(named: 'network'),
+          paymentDescription: any(named: 'paymentDescription'),
+          usePayjoin: any(named: 'usePayjoin'),
+        ),
+      ).thenThrow(const BullBitcoinApiOrderOutcomeUnknownException());
+
+      final result = await place();
+
+      expect(
+        (result as Err<FiatPaymentOrder, PayFailure>).failure,
+        isA<PayOutcomeUnknownFailure>(),
+      );
+    });
+
     test('the amount bounds keep the bound, not just a message', () async {
       when(
         () => mainnet.placePayOrder(

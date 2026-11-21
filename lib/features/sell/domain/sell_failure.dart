@@ -95,6 +95,13 @@ final class SellQuoteUnavailableFailure extends SellFailure {
   const SellQuoteUnavailableFailure([super.logMessage]);
 }
 
+/// The exchange may have created the sell order: the request failed after it may
+/// have reached the server. The user checks the order history before trying
+/// again.
+final class SellOutcomeUnknownFailure extends SellFailure {
+  const SellOutcomeUnknownFailure();
+}
+
 /// The catch-all.
 ///
 /// Carries the raw reason in `logMessage` for diagnosis only — the translation

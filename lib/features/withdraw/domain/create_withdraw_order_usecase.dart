@@ -84,6 +84,13 @@ class CreateWithdrawOrderUsecase {
           interacSecurityDetails: interacSecurityDetails,
         ),
       );
+    } on BullBitcoinApiOrderOutcomeUnknownException catch (e, trace) {
+      log.warning(
+        'Withdrawal order outcome unknown',
+        error: e.runtimeType,
+        trace: trace,
+      );
+      return const Err(WithdrawOutcomeUnknownFailure());
     } on ExchangeCredentialUnavailableException {
       log.warning('Exchange order unavailable: credential read refused');
       return const Err(WithdrawUnexpectedFailure());

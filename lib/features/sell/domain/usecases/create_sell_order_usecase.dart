@@ -105,6 +105,13 @@ class CreateSellOrderUsecase {
         'bip21Present=${order.payjoinBip21 != null}',
       );
       return Ok(order);
+    } on BullBitcoinApiOrderOutcomeUnknownException catch (e, trace) {
+      log.warning(
+        'Sell order outcome unknown',
+        error: e.runtimeType,
+        trace: trace,
+      );
+      return const Err(SellOutcomeUnknownFailure());
     } on ExchangeCredentialUnavailableException {
       log.warning('Exchange order unavailable: credential read refused');
       return const Err(SellUnexpectedFailure());

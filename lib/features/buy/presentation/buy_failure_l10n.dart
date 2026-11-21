@@ -13,6 +13,7 @@ extension BuyFailureL10n on BuyFailure {
 
     // Never `logMessage`: the raw reason is logged at the boundary and is
     // never fit to show a user.
+    BuyOutcomeUnknownFailure() ||
     BuyUnexpectedFailure() => context.loc.buyUnexpectedError,
   };
 }

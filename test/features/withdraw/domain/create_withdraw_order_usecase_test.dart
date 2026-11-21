@@ -251,6 +251,22 @@ void main() {
       });
     }
 
+    test('an unknown order outcome is its own failure', () async {
+      stubPlace(
+        () async => throw const BullBitcoinApiOrderOutcomeUnknownException(),
+      );
+
+      final failure = _err(
+        await usecase.execute(
+          fiatAmount: 100,
+          recipientId: 'recipient-1',
+          recipientType: RecipientType.sepaEur,
+        ),
+      );
+
+      expect(failure, isA<WithdrawOutcomeUnknownFailure>());
+    });
+
     test('an inactive virtual payee is its own failure', () async {
       stubPlace(
         () async =>

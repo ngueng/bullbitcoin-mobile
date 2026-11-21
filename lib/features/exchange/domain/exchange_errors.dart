@@ -69,3 +69,9 @@ class BullBitcoinApiOrderException implements Exception {
   String toString() =>
       'BullBitcoinApiOrderException(apiCode: $apiCode, rpcCode: $rpcCode)';
 }
+
+/// An order write failed after its request may have reached the exchange, so
+/// the order may exist. The user checks the order history before retrying.
+class BullBitcoinApiOrderOutcomeUnknownException implements Exception {
+  const BullBitcoinApiOrderOutcomeUnknownException();
+}

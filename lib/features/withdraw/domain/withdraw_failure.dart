@@ -46,6 +46,13 @@ final class WithdrawConfidentialSepaNotActivatedFailure
   const WithdrawConfidentialSepaNotActivatedFailure([super.logMessage]);
 }
 
+/// The exchange may have created the withdrawal order: the request failed after it may
+/// have reached the server. The user checks the order history before trying
+/// again.
+final class WithdrawOutcomeUnknownFailure extends WithdrawFailure {
+  const WithdrawOutcomeUnknownFailure();
+}
+
 /// The catch-all.
 ///
 /// Carries the raw reason in `logMessage` for diagnosis only — the translation
