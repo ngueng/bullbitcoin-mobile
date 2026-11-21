@@ -246,40 +246,4 @@ void main() {
       );
     });
   });
-
-  for (final (method, call) in [
-    ('getBuyLimits', (OrdersApi o) => o.getBuyLimits()),
-    ('getSellLimits', (OrdersApi o) => o.getSellLimits()),
-  ]) {
-    group(method, () {
-      test('returns the result object', () async {
-        final dio = FakeHttp.dio(
-          body: {
-            'result': {'min': 10, 'max': 1000},
-          },
-        );
-        final orders = BbxApiClient(dio).orders;
-        expect(await call(orders), {'min': 10, 'max': 1000});
-
-        final request = _adapter(dio).requests.single;
-        expect(request.path, '/ak/api-orders');
-        expect((request.data as Map)['method'], method);
-        expect((request.data as Map)['params'], isEmpty);
-      });
-
-      test('no result is a format error', () async {
-        await expectLater(
-          call(BbxApiClient(FakeHttp.dio(body: {'result': null})).orders),
-          throwsA(isA<BbxApiFormatException>()),
-        );
-      });
-
-      test('a JSON-RPC error throws', () async {
-        await expectLater(
-          call(BbxApiClient(FakeHttp.dio(body: _rpcError())).orders),
-          throwsA(isA<BbxApiRpcException>()),
-        );
-      });
-    });
-  }
 }

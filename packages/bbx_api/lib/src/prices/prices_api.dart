@@ -17,7 +17,7 @@ class PricesApi {
     required String toCurrency,
   }) async {
     final result = read<Map<String, dynamic>>(
-      await _client.call(
+      await _client.request(
         endpoint,
         'getUserRate',
         params: {

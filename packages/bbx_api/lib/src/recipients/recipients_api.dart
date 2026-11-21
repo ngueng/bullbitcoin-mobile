@@ -87,7 +87,7 @@ class RecipientsApi {
     required String? securityQuestion,
     required String? securityAnswer,
   }) async {
-    await _client.call(
+    await _client.request(
       endpoint,
       'updateMyRecipient',
       params: {
@@ -192,7 +192,7 @@ class RecipientsApi {
   /// The user's virtual IBAN, or null when they have none.
   Future<VirtualIban?> findVirtualIban() async {
     final result = read<Map<String, dynamic>?>(
-      await _client.call(
+      await _client.request(
         endpoint,
         'listRecipientsFiat',
         params: {
@@ -285,7 +285,7 @@ class RecipientsApi {
     Map<String, Object?> params, {
     Map<String, Object?>? headers,
   }) async => read<Map<String, dynamic>>(
-    await _client.call(endpoint, method, params: params, headers: headers),
+    await _client.request(endpoint, method, params: params, headers: headers),
     'result',
   );
 

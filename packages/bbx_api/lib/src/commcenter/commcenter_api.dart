@@ -18,7 +18,7 @@ class CommcenterApi {
     int pageSize = 5,
   }) async {
     final result = read<Map<String, dynamic>?>(
-      await _client.call(
+      await _client.request(
         endpoint,
         'listAnnouncements',
         params: {
@@ -39,7 +39,7 @@ class CommcenterApi {
     int pageSize = 10,
   }) async {
     final result = read<Map<String, dynamic>>(
-      await _client.call(
+      await _client.request(
         endpoint,
         'listMessages',
         params: {
@@ -59,7 +59,7 @@ class CommcenterApi {
     required String source,
     List<NewSupportAttachment>? attachments,
   }) async {
-    await _client.call(
+    await _client.request(
       endpoint,
       'sendMessageToSupport',
       params: {
@@ -77,7 +77,7 @@ class CommcenterApi {
   Future<SupportAttachment> getMessageAttachment(String attachmentId) async =>
       SupportAttachment.fromJson(
         read<Map<String, dynamic>>(
-          await _client.call(
+          await _client.request(
             endpoint,
             'getMessageAttachment',
             params: {'attachmentId': attachmentId},

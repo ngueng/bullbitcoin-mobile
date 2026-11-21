@@ -446,45 +446,6 @@ void main() {
     });
   });
 
-  group('limits', () {
-    test('getBuyLimits and getSellLimits return the result object', () async {
-      final http = FakeBbxHttp(
-        body: {
-          'result': {'min': 10},
-        },
-      );
-      expect(await _repository(http).getBuyLimits(), {'min': 10});
-      expect(await _repository(http).getSellLimits(), {'min': 10});
-      expect(
-        [for (final r in http.requests) (r.data as Map)['method']],
-        ['getBuyLimits', 'getSellLimits'],
-      );
-    });
-
-    test('a JSON-RPC error is wrapped without its message', () async {
-      await expectLater(
-        _repository(FakeBbxHttp(body: _rpcError)).getSellLimits(),
-        throwsA(
-          isA<Exception>().having(
-            (e) => e.toString(),
-            'message',
-            allOf(
-              startsWith('Exception: Failed to get sell limits:'),
-              isNot(contains('sat@example.com')),
-            ),
-          ),
-        ),
-      );
-    });
-
-    test('no stored key is ApiKeyNotFoundException', () async {
-      await expectLater(
-        _signedOut(FakeBbxHttp()).getBuyLimits(),
-        throwsA(isA<ApiKeyNotFoundException>()),
-      );
-    });
-  });
-
   group('placeBuyOrder', () {
     FakeBbxHttp created() => FakeBbxHttp(body: {'result': orderJsonFixture()});
 

@@ -19,6 +19,7 @@ export 'src/order_triggers/order_triggers_api.dart';
 export 'src/orders/order_stats.dart';
 export 'src/orders/order_summary.dart';
 export 'src/orders/orders_api.dart';
+export 'src/orders/sepa_payment_processor.dart';
 export 'src/prices/prices_api.dart';
 export 'src/prices/user_rate.dart';
 export 'src/recipients/cad_biller.dart';

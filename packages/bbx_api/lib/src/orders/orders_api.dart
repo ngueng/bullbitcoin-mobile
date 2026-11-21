@@ -4,6 +4,7 @@ import 'package:bbx_api/src/json.dart';
 import 'package:bbx_api/src/orders/order_rejection.dart';
 import 'package:bbx_api/src/orders/order_stats.dart';
 import 'package:bbx_api/src/orders/order_summary.dart';
+import 'package:bbx_api/src/orders/sepa_payment_processor.dart';
 
 /// The `api-orders` endpoint.
 class OrdersApi {
@@ -16,7 +17,7 @@ class OrdersApi {
   /// The user's trading statistics.
   Future<OrderStatsReport> getOrderStats() async {
     final result = read<Map<String, dynamic>>(
-      await _client.call(endpoint, 'getOrderStats'),
+      await _client.request(endpoint, 'getOrderStats'),
       'result',
     );
     return OrderStatsReport.fromJson(
@@ -28,7 +29,7 @@ class OrdersApi {
   /// the result itself; both are read.
   Future<OrderSummary> getOrderSummary(String orderId) async {
     final result = read<Map<String, dynamic>>(
-      await _client.call(
+      await _client.request(
         endpoint,
         'getOrderSummary',
         params: {'orderId': orderId},
@@ -44,7 +45,7 @@ class OrdersApi {
   Future<OrderSummary> refreshOrderSummary(String orderId) async =>
       OrderSummary.fromJson(
         read<Map<String, dynamic>>(
-          await _client.call(
+          await _client.request(
             endpoint,
             'refreshOrderSummary',
             params: {'orderId': orderId},
@@ -60,7 +61,7 @@ class OrdersApi {
     int pageSize = 50,
   }) async {
     final result = read<Map<String, dynamic>>(
-      await _client.call(
+      await _client.request(
         endpoint,
         'listOrderSummaries',
         params: {
@@ -87,20 +88,6 @@ class OrdersApi {
     }
     return OrderSummaryList(orders: orders, rejected: rejected);
   }
-
-  /// The user's buy limits, as the server's JSON object.
-  Future<Map<String, dynamic>> getBuyLimits() async =>
-      read<Map<String, dynamic>>(
-        await _client.call(endpoint, 'getBuyLimits'),
-        'result',
-      );
-
-  /// The user's sell limits, as the server's JSON object.
-  Future<Map<String, dynamic>> getSellLimits() async =>
-      read<Map<String, dynamic>>(
-        await _client.call(endpoint, 'getSellLimits'),
-        'result',
-      );
 
   /// Creates a buy order paid out to [network].
   ///
@@ -204,7 +191,7 @@ class OrdersApi {
     required int amount,
     required String callbackUrl,
   }) async => read<String>(
-    await _client.call(
+    await _client.request(
       endpoint,
       'getCopPaymentLink',
       params: {
@@ -237,7 +224,12 @@ class OrdersApi {
         BbxApiRpcException.fromJson,
   }) async => OrderSummary.fromJson(
     read<Map<String, dynamic>>(
-      await _client.call(endpoint, method, params: params, rpcError: rpcError),
+      await _client.request(
+        endpoint,
+        method,
+        params: params,
+        rpcError: rpcError,
+      ),
       'result',
     ),
   );
@@ -249,15 +241,4 @@ class OrdersApi {
     'fiatAmount': ?fiatAmount,
     if (fiatAmount == null) 'bitcoinAmount': ?bitcoinAmount,
   };
-}
-
-/// The SEPA rail of a EUR payout.
-enum SepaPaymentProcessor {
-  regular('REGULAR_SEPA'),
-  confidential('CONFIDENTIAL_SEPA');
-
-  /// The wire value.
-  final String value;
-
-  const SepaPaymentProcessor(this.value);
 }

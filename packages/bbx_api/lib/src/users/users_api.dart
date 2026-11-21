@@ -15,7 +15,7 @@ class UsersApi {
   /// result.
   Future<UserSummary?> getUserSummary() async {
     final result = read<Map<String, dynamic>?>(
-      await _client.call(endpoint, 'getUserSummary'),
+      await _client.request(endpoint, 'getUserSummary'),
       'result',
     );
     return result == null ? null : UserSummary.fromJson(result);
@@ -25,7 +25,7 @@ class UsersApi {
   /// server reported `success: true`; any other result, including one that
   /// is not an object, is `false`.
   Future<bool> registerResponsibilityConsent() async {
-    final result = await _client.call(
+    final result = await _client.request(
       endpoint,
       'registerResponsibilityConsent',
     );
@@ -34,7 +34,7 @@ class UsersApi {
 
   /// Saves [preferences], replacing the stored set.
   Future<void> saveUserPreferences(UserPreferences preferences) async {
-    await _client.call(
+    await _client.request(
       endpoint,
       'saveUserPreferences',
       params: {'userPreferences': preferences.toJson()},

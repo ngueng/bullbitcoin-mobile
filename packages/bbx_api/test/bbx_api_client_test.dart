@@ -8,7 +8,7 @@ void main() {
   test('sends a JSON-RPC request and returns the result', () async {
     final dio = FakeHttp.dio(body: {'result': 42});
     final result = await BbxApiClient(dio)
-        .call('/ak/api-orders', 'ping', params: {'a': 1});
+        .request('/ak/api-orders', 'ping', params: {'a': 1});
 
     expect(result, 42);
     final request = (dio.httpClientAdapter as FakeHttp).requests.single;
@@ -24,7 +24,7 @@ void main() {
 
   test('sends the given request id', () async {
     final dio = FakeHttp.dio(body: {'result': null});
-    await BbxApiClient(dio).call('/x', 'm', id: '1');
+    await BbxApiClient(dio).request('/x', 'm', id: '1');
 
     final request = (dio.httpClientAdapter as FakeHttp).requests.single;
     expect((request.data as Map)['id'], '1');
@@ -39,7 +39,7 @@ void main() {
       ),
     );
     await expectLater(
-      client.call('/x', 'm'),
+      client.request('/x', 'm'),
       throwsA(
         isA<BbxApiRpcException>()
             .having((e) => e.code, 'code', -32000)
@@ -52,20 +52,20 @@ void main() {
   test('a body that is not an object is a format error', () async {
     final client = BbxApiClient(FakeHttp.dio(body: [1, 2]));
     await expectLater(
-      client.call('/x', 'm'),
+      client.request('/x', 'm'),
       throwsA(isA<BbxApiFormatException>()),
     );
   });
 
   test('transport errors are rethrown unchanged', () async {
     final client = BbxApiClient(FakeHttp.dio(status: 500, body: {}));
-    await expectLater(client.call('/x', 'm'), throwsA(isA<DioException>()));
+    await expectLater(client.request('/x', 'm'), throwsA(isA<DioException>()));
   });
 
   test('a non-200 success status is an HTTP error', () async {
     final client = BbxApiClient(FakeHttp.dio(status: 204, body: {}));
     await expectLater(
-      client.call('/x', 'm'),
+      client.request('/x', 'm'),
       throwsA(
         isA<BbxApiHttpException>().having((e) => e.statusCode, 'status', 204),
       ),

@@ -25,7 +25,7 @@ class OrderTriggersApi {
     required String address,
   }) async {
     final result = read<Map<String, dynamic>>(
-      await _client.call(
+      await _client.request(
         endpoint,
         'createDCA',
         id: '1',
@@ -101,11 +101,11 @@ class OrderTriggersApi {
     String method,
     Map<String, Object?> params,
   ) async => read<Map<String, dynamic>>(
-    await _client.call(
+    await _client.request(
       endpoint,
       method,
       params: params,
-      rpcError: limitOrderRejection,
+      rpcError: _limitOrderRejection,
     ),
     'result',
   );
@@ -116,7 +116,7 @@ class OrderTriggersApi {
 
 /// Reads the JSON-RPC [error] of a limit order call. Its [BbxApiRpcException.apiCode]
 /// is `data.code` when that is an `ERR_` code.
-BbxApiRpcException limitOrderRejection(Object error) {
+BbxApiRpcException _limitOrderRejection(Object error) {
   final rpc = BbxApiRpcException.fromJson(error);
   final code = switch (error) {
     {'data': {'code': final String code}} when _apiCode.hasMatch(code) => code,

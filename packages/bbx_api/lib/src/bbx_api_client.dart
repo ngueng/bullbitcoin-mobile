@@ -32,7 +32,7 @@ class BbxApiClient {
   /// body that is not a JSON-RPC response. [rpcError] reads the JSON-RPC
   /// error object into the exception to throw. [id] is the JSON-RPC request
   /// id. [headers] are added to the request's headers.
-  Future<Object?> call(
+  Future<Object?> request(
     String endpoint,
     String method, {
     Map<String, Object?> params = const {},

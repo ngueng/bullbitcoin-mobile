@@ -205,26 +205,6 @@ class BbxApiOrderRepository implements ExchangeOrderRepository {
   }
 
   @override
-  Future<Map<String, dynamic>> getBuyLimits() async {
-    try {
-      return await _api.orders.getBuyLimits();
-    } catch (e, st) {
-      rethrowExchangeAuthentication(e, st);
-      throw Exception('Failed to get buy limits: ${_describe(e)}');
-    }
-  }
-
-  @override
-  Future<Map<String, dynamic>> getSellLimits() async {
-    try {
-      return await _api.orders.getSellLimits();
-    } catch (e, st) {
-      rethrowExchangeAuthentication(e, st);
-      throw Exception('Failed to get sell limits: ${_describe(e)}');
-    }
-  }
-
-  @override
   Future<BuyOrder> placeBuyOrder({
     required String toAddress,
     required OrderAmount orderAmount,
