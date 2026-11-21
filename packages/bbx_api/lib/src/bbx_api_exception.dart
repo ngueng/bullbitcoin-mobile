@@ -28,19 +28,17 @@ final class BbxApiRpcException extends BbxApiException {
 
   const BbxApiRpcException({this.code, this.message, this.apiCode});
 
-  factory BbxApiRpcException.fromJson(Object error) => switch (error) {
-    {'code': final int? code, 'message': final String? message} =>
-      BbxApiRpcException(
-        code: code,
-        message: message,
-        apiCode: _apiCode(error),
-      ),
-    {'code': final int? code} => BbxApiRpcException(
-      code: code,
-      apiCode: _apiCode(error),
-    ),
-    _ => BbxApiRpcException(apiCode: _apiCode(error)),
-  };
+  factory BbxApiRpcException.fromJson(Object error) => BbxApiRpcException(
+    code: switch (error) {
+      {'code': final int code} => code,
+      _ => null,
+    },
+    message: switch (error) {
+      {'message': final String message} => message,
+      _ => null,
+    },
+    apiCode: _apiCode(error),
+  );
 
   static final _apiCodePattern = RegExp(r'^ERR_[A-Z0-9_]{1,64}$');
 

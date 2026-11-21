@@ -49,6 +49,23 @@ void main() {
     );
   });
 
+  test('a JSON-RPC error keeps its message without a code', () async {
+    for (final error in [
+      {'message': 'nope'},
+      {'code': 'E1', 'message': 'nope'},
+    ]) {
+      final client = BbxApiClient(FakeHttp.dio(body: {'error': error}));
+      await expectLater(
+        client.request('/x', 'm'),
+        throwsA(
+          isA<BbxApiRpcException>()
+              .having((e) => e.code, 'code', isNull)
+              .having((e) => e.message, 'message', 'nope'),
+        ),
+      );
+    }
+  });
+
   test('a body that is not an object is a format error', () async {
     final client = BbxApiClient(FakeHttp.dio(body: [1, 2]));
     await expectLater(
