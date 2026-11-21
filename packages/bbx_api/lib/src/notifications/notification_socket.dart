@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
@@ -158,13 +159,19 @@ class BbxNotificationSocket {
       }
       if (!identical(_attempt, attempt)) return;
       _isConnecting = false;
-      if (error.toString().contains('not upgraded to websocket')) {
-        _isManuallyDisconnected = true;
-      }
+      if (_isRefusedUpgrade(error)) _isManuallyDisconnected = true;
       _recordConnectionFailure(error);
       _handleDisconnect();
     }
   }
+
+  /// Whether the server answered the handshake with an HTTP status instead
+  /// of upgrading the connection.
+  static bool _isRefusedUpgrade(Object error) => switch (error) {
+    WebSocketException(httpStatusCode: _?) => true,
+    WebSocketChannelException(:final inner?) => _isRefusedUpgrade(inner),
+    _ => false,
+  };
 
   void _handleMessage(Object? message) {
     final Object? decoded;

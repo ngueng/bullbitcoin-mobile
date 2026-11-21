@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:bbx_api/bbx_api.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:fake_async/fake_async.dart';
 import 'package:test/test.dart';
 
@@ -180,16 +182,33 @@ void main() {
     });
   });
 
-  test('a handshake not upgraded to websocket is not retried', () {
+  test('a handshake refused with an HTTP status is not retried', () {
     fakeAsync((time) {
       connector.onConnect = (channel) => channel.refuse(
-        const SocketLikeException('Connection was not upgraded to websocket'),
+        WebSocketChannelException.from(
+          const WebSocketException('Connection was not upgraded', 403),
+        ),
       );
       final s = socket();
       unawaited(s.connect());
       time.elapse(const Duration(minutes: 1));
       expect(connector.handshakes, hasLength(1));
       expect(s.isConnected, isFalse);
+      s.dispose();
+    });
+  });
+
+  test('a websocket failure without a status is retried', () {
+    fakeAsync((time) {
+      connector.onConnect = (channel) => channel.refuse(
+        WebSocketChannelException.from(
+          const WebSocketException('Connection was not upgraded to websocket'),
+        ),
+      );
+      final s = socket();
+      unawaited(s.connect());
+      time.elapse(const Duration(seconds: 6));
+      expect(connector.handshakes, hasLength(2));
       s.dispose();
     });
   });
